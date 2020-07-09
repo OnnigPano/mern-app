@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const ObjectID = require('mongoose').ObjectID
 const User = require('../models/user');
 const Product = require('../models/product');
 const auth = require('../middleware/auth');
-
+const upload = require('../utils/uploader');
 
 router.post('/users', async (req, res) => {
     const user = new User(req.body);
-
     try {
         //await user.save();
         const token = await user.generateToken();
@@ -63,6 +61,18 @@ router.delete('/users/me', auth, async (req, res) => {
     } catch (e) {
         res.status(401).send(e);
     } 
+})
+
+router.post('/users/avatar', auth, function (req, res) {
+        upload(req, res, (error) => {
+            if(error) {
+                res.status(400).send({error})
+            } else {
+                req.user.profileImage = req.file.filename
+                req.user.save()
+                res.send(req.user)
+            }
+        }) 
 })
 
 router.post('/cart/add', auth, async(req, res) => {
