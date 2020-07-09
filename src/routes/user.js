@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const ObjectID = require('mongoose').ObjectID
 const User = require('../models/user');
+const Product = require('../models/product');
 const auth = require('../middleware/auth');
 
 
@@ -23,7 +25,7 @@ router.post('/users/login', async (req, res) => {
         const token = await user.generateToken();
         res.status(200).send({ user, token });
     } catch (e) {
-        res.status(400).send(e);
+        res.status(400).send({error: e.message });
     }
 })
 
@@ -48,6 +50,43 @@ router.post('/users/logoutAll', auth, async (req, res) => {
     } catch (e) {
         res.status(500).send();
     }
+})
+
+router.post('/users/me', auth, (req, res) => {
+    res.send(req.user);
+})
+
+router.delete('/users/me', auth, async (req, res) => {
+    try {
+        await req.user.remove()
+        res.send(req.user);
+    } catch (e) {
+        res.status(401).send(e);
+    } 
+})
+
+router.post('/cart/add', auth, async(req, res) => {
+    try {
+        const product = await Product.findById(req.body.productID)
+        if(!product) {
+            res.status(404).send({error: "Product not found"})
+        }
+        req.user.cartProducts.push(product)
+        await req.user.save()
+        res.send(req.user.cartProducts)
+    } catch (e) {
+        res.send(e)
+    }
+})
+
+router.get('/cart', auth, async (req, res) => {
+    try {
+        const products = await req.user.populate('cartProducts').execPopulate()
+        res.send(products)
+    } catch (e) {
+        res.send(e)
+    }
+   
 })
 
 

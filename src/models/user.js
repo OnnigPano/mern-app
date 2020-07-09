@@ -34,7 +34,7 @@ const userSchema = new Schema({
                 }
         }
     },
-    products: [{
+    cartProducts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product'
     }],
