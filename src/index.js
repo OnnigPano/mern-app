@@ -5,7 +5,7 @@ require('./database');
 const userRouter = require('./routes/user');
 const productRouter = require('./routes/product');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
