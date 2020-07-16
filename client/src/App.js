@@ -1,15 +1,19 @@
 import React from 'react';
-import { Container } from '@material-ui/core';
-import Appbar from './UI/Appbar'
 import './App.css';
+import { CssBaseline, ThemeProvider } from "@material-ui/core";
+import theme from './MuiConfig'
+import Auth from './components/Auth';
+import AppBar from './components/AppBar';
 
 function App() {
   return (
-    <div className="App">
-      
-        <Appbar color="primary" />
-      
-    </div>
+    <ThemeProvider theme={theme} >
+      <div className="App">
+        <CssBaseline />
+        <AppBar />
+        <Auth />
+      </div>
+    </ThemeProvider>
   );
 }
 
