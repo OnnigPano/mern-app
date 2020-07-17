@@ -6,6 +6,9 @@ const userController = {
     createUser: async (req, res) => {
 
         const user = new User(req.body);
+        if(!user) {
+            return res.status(400).send({ error: 'error en createUser' })
+        }
         try {
             //await user.save();
             const token = await user.generateToken();
@@ -21,7 +24,7 @@ const userController = {
             const token = await user.generateToken();
             res.status(200).send({ user, token });
         } catch (e) {
-            res.status(400).send({error: e.message });
+            res.status(401).send(e);
         }
     },
     logout:  async (req, res) => {
