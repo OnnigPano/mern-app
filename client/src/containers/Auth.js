@@ -72,6 +72,10 @@ const Auth = () => {
 
         try {
             const response = await axios.post(url, credentials);
+            /* Si todo va bien, guardar el token en el localStorage
+             * también se podría guardar el id de usuario aunque éste lo obtiene el middleware auth del backend
+             * redericcionar al home
+             */
             console.log(response);
             setLoading(false);
         } catch (e) {
@@ -104,7 +108,6 @@ const Auth = () => {
                                     type="text" 
                                     label="Usuario" 
                                     variant="outlined"
-                                    value={nameValue} 
                                     helperText={registerErrors.name.error && registerErrors.name.msg}
                                     onChange={(e) => inputHandler(e, setNameValue, 'name')} 
                                     />}
@@ -114,7 +117,6 @@ const Auth = () => {
                                     type="email"
                                     label="E-mail" 
                                     variant="outlined"
-                                    value={emailValue} 
                                     helperText={registerErrors.email.error && registerErrors.email.msg}
                                     onChange={(e) => inputHandler(e, setEmailValue, 'email')} 
                                     />
@@ -136,7 +138,14 @@ const Auth = () => {
 
                 <Typography variant="caption" component="small" align="center">
                     {isRegister ? '¿Ya tienes usuario?' : '¿No tienes usuario?'} 
-                    <Button size="small" disableRipple disableElevation onClick={() => setIsRegister(!isRegister)} >
+                    <Button size="small" disableRipple disableElevation 
+                    onClick={() => {
+                        setIsRegister(!isRegister)
+                        document.getElementsByTagName('form')[0].reset();
+                        setLoginError(false);
+                        } 
+                    }
+                    >
                         {isRegister ? 'Iniciar sesión' : 'Registarse'}
                     </Button>
                 </Typography>

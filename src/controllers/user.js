@@ -5,6 +5,9 @@ const upload = require('../utils/uploader');
 const userController = {
     createUser: async (req, res) => {
 
+        /*
+            Falta manejar errores, sobretodo los que vienen desde MongoDB 
+         */
         const user = new User(req.body);
         if(!user) {
             return res.status(400).send({ error: 'error en createUser' })

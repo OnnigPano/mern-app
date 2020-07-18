@@ -25,7 +25,8 @@ const productSchema = new Schema({
     }, 
     category: {
         type: String
-    }
+    },
+    images: [],
 }, {
     timestamps: true
 });
