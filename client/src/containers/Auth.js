@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import axios from 'axios';
+import React, { useState, useContext } from "react";
 import validator from 'validator';
 import { Card, Button, TextField, Typography, LinearProgress  } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
+import { AuthContext } from '../context/auth-context';
 
 
 
@@ -52,7 +52,9 @@ const Auth = () => {
         }
     });
 
-    let url = isRegister ? 'http://localhost:5000/users' : 'http://localhost:5000/users/login';
+    const authContext = useContext(AuthContext);
+
+    let url = isRegister ? 'http://localhost:5000/users': null;
 
     const inputHandler = (event, stateHandler, type) => {
         stateHandler(event.target.value);
@@ -70,19 +72,11 @@ const Auth = () => {
             name: nameValue
         }
 
-        try {
-            const response = await axios.post(url, credentials);
-            /* Si todo va bien, guardar el token en el localStorage
-             * también se podría guardar el id de usuario aunque éste lo obtiene el middleware auth del backend
-             * redericcionar al home
-             */
-            console.log(response);
-            setLoading(false);
-        } catch (e) {
-            console.log(e.response)
+        const response = await authContext.login(credentials);
+        setLoading(false);
+        if(!response) {
             !isRegister && setLoginError(true);
-            setLoading(false);
-        }    
+        }          
     }
 
     const registerValidator = (value, type) => {
