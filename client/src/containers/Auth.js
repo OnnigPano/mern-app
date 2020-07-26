@@ -4,7 +4,10 @@ import { Card, Button, TextField, Typography, LinearProgress  } from '@material-
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthContext } from '../context/auth-context';
 
-
+/* 
+Faltaría validar cuando se envía el registro de usuario vacío,
+también si el email registrado ya existe
+*/
 
 const useStyles = makeStyles({
     root: {
@@ -29,7 +32,7 @@ const useStyles = makeStyles({
     }
 })
 
-const Auth = () => {
+const Auth = (props) => {
     const classes = useStyles();
     const [emailValue, setEmailValue] = useState('');
     const [passValue, setPassValue] = useState('');
@@ -54,11 +57,10 @@ const Auth = () => {
 
     const authContext = useContext(AuthContext);
 
-    let url = isRegister ? 'http://localhost:5000/users': null;
-
     const inputHandler = (event, stateHandler, type) => {
         stateHandler(event.target.value);
-        registerValidator(event.target.value, type)
+        registerValidator(event.target.value, type);
+        if(loginError) setLoginError(false);
     }
 
     const authenticationHandler = async (event) => {
@@ -72,11 +74,19 @@ const Auth = () => {
             name: nameValue
         }
 
-        const response = await authContext.login(credentials);
-        setLoading(false);
-        if(!response) {
+        let success;
+        if(isRegister) {
+            success = await authContext.register(credentials);
+        } else {
+            success = await authContext.login(credentials);
+        }
+       
+        if(!success) {
+            setLoading(false);
             !isRegister && setLoginError(true);
-        }          
+        } else {
+           props.history.push('/');
+        }    
     }
 
     const registerValidator = (value, type) => {
@@ -90,60 +100,59 @@ const Auth = () => {
     }
 
     return (    
+            <Card className={classes.root} >                
+                    <Typography className={classes.typography} component="h2" variant="h5" align="center">Ingresá tus datos</Typography>
 
-        <Card className={classes.root} >                
-                <Typography className={classes.typography} component="h2" variant="h5" align="center">Ingresá tus datos</Typography>
+                    {loginError && <Typography color="secondary" component="span" variant="subtitle2" align="center" >Datos de usuario inválidos</Typography>}
 
-                {loginError && <Typography color="secondary" component="span" variant="subtitle2" align="center" >Datos de usuario inválidos</Typography>}
+                    <form className={classes.form} onSubmit={(e) => authenticationHandler(e)} noValidate>
+                        {isRegister && <TextField 
+                                        error={registerErrors.name.error}
+                                        type="text" 
+                                        label="Usuario" 
+                                        variant="outlined"
+                                        helperText={registerErrors.name.error && registerErrors.name.msg}
+                                        onChange={(e) => inputHandler(e, setNameValue, 'name')} 
+                                        />}
 
-                <form className={classes.form} onSubmit={(e) => authenticationHandler(e)} noValidate>
-                    {isRegister && <TextField 
-                                    error={registerErrors.name.error}
-                                    type="text" 
-                                    label="Usuario" 
-                                    variant="outlined"
-                                    helperText={registerErrors.name.error && registerErrors.name.msg}
-                                    onChange={(e) => inputHandler(e, setNameValue, 'name')} 
-                                    />}
+                                        <TextField 
+                                        error={loginError || registerErrors.email.error} 
+                                        type="email"
+                                        label="E-mail" 
+                                        variant="outlined"
+                                        helperText={registerErrors.email.error && registerErrors.email.msg}
+                                        onChange={(e) => inputHandler(e, setEmailValue, 'email')} 
+                                        />
 
-                                    <TextField 
-                                    error={loginError || registerErrors.email.error} 
-                                    type="email"
-                                    label="E-mail" 
-                                    variant="outlined"
-                                    helperText={registerErrors.email.error && registerErrors.email.msg}
-                                    onChange={(e) => inputHandler(e, setEmailValue, 'email')} 
-                                    />
+                                        <TextField 
+                                        error={loginError || registerErrors.password.error} 
+                                        type="password"
+                                        label="Contraseña" 
+                                        variant="outlined"
+                                        helperText={registerErrors.password.error && registerErrors.password.msg} 
+                                        onChange={(e) => inputHandler(e, setPassValue, 'password')} 
+                                        />
+                    
+                        {loading ? <LinearProgress  color="primary" /> 
+                                : <Button variant="contained" color="primary" type="submit" size="large">
+                                    {isRegister ? 'Registrarse' : 'Iniciar Sesión'}
+                                    </Button>}
+                    </form>
 
-                                    <TextField 
-                                    error={loginError || registerErrors.password.error} 
-                                    type="password"
-                                    label="Contraseña" 
-                                    variant="outlined"
-                                    helperText={registerErrors.password.error && registerErrors.password.msg} 
-                                    onChange={(e) => inputHandler(e, setPassValue, 'password')} 
-                                    />
-                
-                    {loading ? <LinearProgress  color="primary" /> 
-                             : <Button variant="contained" color="primary" type="submit" size="large">
-                                {isRegister ? 'Registrarse' : 'Iniciar Sesión'}
-                                </Button>}
-                </form>
-
-                <Typography variant="caption" component="small" align="center">
-                    {isRegister ? '¿Ya tienes usuario?' : '¿No tienes usuario?'} 
-                    <Button size="small" disableRipple disableElevation 
-                    onClick={() => {
-                        setIsRegister(!isRegister)
-                        document.getElementsByTagName('form')[0].reset();
-                        setLoginError(false);
-                        } 
-                    }
-                    >
-                        {isRegister ? 'Iniciar sesión' : 'Registarse'}
-                    </Button>
-                </Typography>
-        </Card>    
+                    <Typography variant="caption" component="small" align="center">
+                        {isRegister ? '¿Ya tienes usuario?' : '¿No tienes usuario?'} 
+                        <Button size="small" disableRipple disableElevation 
+                        onClick={() => {
+                            setIsRegister(!isRegister)
+                            document.getElementsByTagName('form')[0].reset();
+                            setLoginError(false);
+                            } 
+                        }
+                        >
+                            {isRegister ? 'Iniciar sesión' : 'Registarse'}
+                        </Button>
+                    </Typography>
+            </Card>  
     );
 }
 

@@ -3,21 +3,32 @@ import axios from 'axios';
 
 export const AuthContext = React.createContext({
     //esto es como una inicializacion de mentira, simple estructura
-    isAuth: false
+    isAuth: false,
+    user: {}
 });
 
 const AuthContextProvider = (props) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [userData, setUserData] = useState({
+        email: '',
+        name: '',
+        img: ''
+    });
 
     const loginHandler = async (credentials) => {
         try {
-            const response = await axios.post('http://localhost:5000/users/login', credentials);
-            localStorage.setItem('token', response.data.token);
+            const { data } = await axios.post('http://localhost:5000/users/login', credentials);
+            localStorage.setItem('token', data.token);
             setIsAuthenticated(true);
-            console.log(response);
-            return response;
+            setUserData({
+                email: data.user.email,
+                name: data.user.name,
+                img: data.user.profileImage
+            })
+            console.log(data);
+            return true;
         } catch (error) {
-            console.log(error.toJson());
+            console.log(error);
         }
     }
 
@@ -30,16 +41,53 @@ const AuthContextProvider = (props) => {
                         'Authorization': 'Bearer ' + token
                     }
                 })
-                return user;
+                if(!user){
+                    localStorage.removeItem(token);
+                } else {
+                    setIsAuthenticated(true);
+                    setUserData({
+                        email: user.data.email,
+                        name: user.data.name,
+                        img: user.data.profileImage
+                    });
+                }
+            
             } catch (error) {
-                console.log(error.toJSON())
+                console.log(error);
             }
         }  
     }
 
+    const registerHandler = async (credentials) => {
+        try {
+            const user = await axios.post('http://localhost:5000/users', credentials);
+            /* No guardo el token para que se vuelva a loguear la próxima vez */
+            if(user) {
+                setIsAuthenticated(true);
+                setUserData({
+                    email: user.data.user.email,
+                    name: user.data.user.name,
+                    img: user.data.user.profileImage
+                });
+            }
+            console.log(user);
+            return true;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         //acá le paso los valores al AuthContext
-        <AuthContext.Provider value={ { isAuth: isAuthenticated, login: loginHandler } }>
+        <AuthContext.Provider 
+        value={{
+            isAuth: isAuthenticated,
+            user: userData,
+            login: loginHandler,
+            checkToken: checkTokenExists,
+            register: registerHandler
+            }}
+        >
             {props.children}
         </AuthContext.Provider>
     );

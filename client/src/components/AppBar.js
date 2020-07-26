@@ -11,8 +11,7 @@ import TemporaryDrawer from './TemporaryDrawer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
-    marginBottom: 30
+    flexGrow: 1
   },
   menuButton: {
     marginRight: theme.spacing(2),
