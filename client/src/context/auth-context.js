@@ -32,6 +32,22 @@ const AuthContextProvider = (props) => {
         }
     }
 
+    const logoutHandler = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            await axios.post('http://localhost:5000/users/logout', {} , {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+            });
+            localStorage.removeItem('token');
+            setIsAuthenticated(false);
+            setUserData({});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const checkTokenExists = async () => {
         const token = localStorage.getItem('token');
         if(token) {
@@ -42,7 +58,7 @@ const AuthContextProvider = (props) => {
                     }
                 })
                 if(!user){
-                    localStorage.removeItem(token);
+                    localStorage.removeItem('token');
                 } else {
                     setIsAuthenticated(true);
                     setUserData({
@@ -85,7 +101,8 @@ const AuthContextProvider = (props) => {
             user: userData,
             login: loginHandler,
             checkToken: checkTokenExists,
-            register: registerHandler
+            register: registerHandler,
+            logout: logoutHandler
             }}
         >
             {props.children}

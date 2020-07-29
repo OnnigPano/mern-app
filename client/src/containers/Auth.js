@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
 import validator from 'validator';
-import { Card, Button, TextField, Typography, LinearProgress  } from '@material-ui/core';
+import { Card, Button, TextField, Typography, LinearProgress, Link  } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthContext } from '../context/auth-context';
+
+import BackImg from '../components/BackImg';
 
 /* 
 Faltaría validar cuando se envía el registro de usuario vacío,
@@ -11,15 +13,15 @@ también si el email registrado ya existe
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: 450,
-        marginTop: 60,
+        maxWidth: 400,
         marginRight: 'auto',
         marginLeft: 'auto',
         padding: 20,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-around",
-        height: 400     
+        height: 340,
+        backgroundColor: 'rgba(255,255,255,0.8)'   
     },
     typography: {
         fontWeight: 500,
@@ -28,7 +30,7 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
-        height: 3000
+        height: 280
     }
 })
 
@@ -83,7 +85,7 @@ const Auth = (props) => {
        
         if(!success) {
             setLoading(false);
-            !isRegister && setLoginError(true);
+            setLoginError(true);
         } else {
            props.history.push('/');
         }    
@@ -99,18 +101,20 @@ const Auth = (props) => {
         }
     }
 
-    return (    
+    return (
+        <BackImg>   
             <Card className={classes.root} >                
                     <Typography className={classes.typography} component="h2" variant="h5" align="center">Ingresá tus datos</Typography>
 
-                    {loginError && <Typography color="secondary" component="span" variant="subtitle2" align="center" >Datos de usuario inválidos</Typography>}
+                    {loginError && <Typography color="error" component="span" variant="subtitle2" align="center" >Datos inválidos</Typography>}
 
                     <form className={classes.form} onSubmit={(e) => authenticationHandler(e)} noValidate>
                         {isRegister && <TextField 
-                                        error={registerErrors.name.error}
+                                        error={loginError || registerErrors.name.error}
                                         type="text" 
                                         label="Usuario" 
                                         variant="outlined"
+                                        size="small"
                                         helperText={registerErrors.name.error && registerErrors.name.msg}
                                         onChange={(e) => inputHandler(e, setNameValue, 'name')} 
                                         />}
@@ -120,6 +124,7 @@ const Auth = (props) => {
                                         type="email"
                                         label="E-mail" 
                                         variant="outlined"
+                                        size="small"
                                         helperText={registerErrors.email.error && registerErrors.email.msg}
                                         onChange={(e) => inputHandler(e, setEmailValue, 'email')} 
                                         />
@@ -129,30 +134,35 @@ const Auth = (props) => {
                                         type="password"
                                         label="Contraseña" 
                                         variant="outlined"
+                                        size="small"
                                         helperText={registerErrors.password.error && registerErrors.password.msg} 
                                         onChange={(e) => inputHandler(e, setPassValue, 'password')} 
                                         />
                     
                         {loading ? <LinearProgress  color="primary" /> 
-                                : <Button variant="contained" color="primary" type="submit" size="large">
+                                : <Button variant="contained" color="primary" type="submit">
                                     {isRegister ? 'Registrarse' : 'Iniciar Sesión'}
                                     </Button>}
                     </form>
 
                     <Typography variant="caption" component="small" align="center">
-                        {isRegister ? '¿Ya tienes usuario?' : '¿No tienes usuario?'} 
-                        <Button size="small" disableRipple disableElevation 
+                        {isRegister ? '¿Ya tienes usuario? ' : '¿No tienes usuario? '} 
+                        <Link component="button" 
                         onClick={() => {
                             setIsRegister(!isRegister)
                             document.getElementsByTagName('form')[0].reset();
+                            setEmailValue('');
+                            setNameValue('');
+                            setPassValue('');
                             setLoginError(false);
                             } 
                         }
                         >
-                            {isRegister ? 'Iniciar sesión' : 'Registarse'}
-                        </Button>
+                            {isRegister ? 'Iniciar Sesión' : 'Registarse'}
+                        </Link>
                     </Typography>
-            </Card>  
+            </Card>
+        </BackImg>    
     );
 }
 

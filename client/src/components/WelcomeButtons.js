@@ -26,7 +26,7 @@ const Buttons = () => {
         <div className={classes.root}>
             {/* <Typography className={classes.typo} variant="h4" component="h4">Welcome!</Typography> */}
             <Link to="/products" style={{textDecoration: 'none'}}>
-                <Button variant="contained" color="secondary" size="large" >Ver Productos</Button>
+                <Button variant="contained" color="secondary" size="large" >Descubrir</Button>
             </Link>
             {/* <div>
                 <Button variant="contained" color="primary" >Iniciar Sesión</Button>

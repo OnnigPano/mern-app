@@ -9,7 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Store, Favorite, ShoppingCart, Info, PersonAdd, VpnKey } from '@material-ui/icons';
+import { Store, Favorite, ShoppingCart, Info, PersonAdd, VpnKey, PowerSettingsNew } from '@material-ui/icons';
 import ListItemLink from './ListItemLink';
 
 
@@ -31,17 +31,13 @@ export default function TemporaryDrawer(props) {
 
   const authButtons = (
     <div>
-      {/* <ListItem button component={Link} to="/auth">
-        <ListItemIcon> <PersonAdd/> </ListItemIcon>
-        <ListItemText primary="Registrarse" />
-      </ListItem>
-      <ListItem button component={Link} to="/auth">
-        <ListItemIcon> <VpnKey/> </ListItemIcon>
-        <ListItemText primary="Iniciar Sesión" />
-      </ListItem> */}
       <ListItemLink to="/auth" primary="Iniciar Sesión" icon={<VpnKey/>} />
       <ListItemLink to="/auth" primary="Registrarse" icon={<PersonAdd/>} />
     </div>
+  );
+  
+  const logOutButton = (
+    <ListItemLink to="/logout" primary="Cerrar Sesión" icon={<PowerSettingsNew/>} />
   );
 
   const list = (
@@ -52,19 +48,16 @@ export default function TemporaryDrawer(props) {
     > 
       <List>
         <ListItem>
-          <Avatar src={authContext.profileImage} className={classes.avatar} />
+          <Avatar src={authContext.user.profileImage} className={classes.avatar} />
           <Typography variant="subtitle1" component="h4">
-            {authContext.isAuth ? authContext.name : 'Bienvenido'}
+            {authContext.isAuth ? authContext.user.name : 'Bienvenido'}
           </Typography>
         </ListItem>
-        {!authContext.isAuth ? authButtons : null}
+        <Divider />
+        {!authContext.isAuth ? authButtons : logOutButton}
       </List>
       <Divider />
       <List>
-          {/* <ListItem button component={Link} to="/productos">
-            <ListItemIcon> <Store/> </ListItemIcon>
-            <ListItemText primary="Productos" />
-          </ListItem> */}
           <ListItemLink to="/products" primary="Productos" icon={<Store/>} />
           <ListItem button component={Link} to="/favs">
             <ListItemIcon> <Favorite/> </ListItemIcon>

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import './App.css';
 import { Switch, Route, Redirect } from "react-router-dom";
-import { Container } from "@material-ui/core";
 import Auth from './containers/Auth';
 import AppBar from './components/AppBar';
+import Logout from './components/Logout';
 import ProductsList from './containers/ProductsList';
 import WelcomePage from './containers/WelcomePage';
 import  { AuthContext }  from './context/auth-context';
@@ -23,14 +23,12 @@ function App() {
   return (
       <div className="App">
         <AppBar />
-        <Route exact path="/" component={WelcomePage} />
-        <Container fixed>
           <Switch>
+            <Route exact path="/" component={WelcomePage} />
             <Route path="/products" component={ProductsList} />
-            {!isAuth ? <Route path="/auth" component={Auth} /> : null}
+            {!isAuth ? <Route path="/auth" component={Auth} /> : <Route path="/logout" component={Logout} />}            
             <Redirect path='*' to='/' />
           </Switch>
-        </Container>
       </div>
   );
 }

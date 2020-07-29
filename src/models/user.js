@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const beautifyUnique = require('mongoose-beautiful-unique-validation');
 
 const Schema = mongoose.Schema;
 
@@ -26,7 +27,7 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
+        unique: 'Email already in use ({VALUE})',
         lowercase: true,
         validate(value) {
                 if(!validator.isEmail(value)) {
@@ -57,6 +58,8 @@ const userSchema = new Schema({
 }, {
     timestamps: true
 })
+
+userSchema.plugin(beautifyUnique);
 
 userSchema.methods.toJSON = function() {
     const user = this;
