@@ -6,6 +6,7 @@ import AppBar from './components/AppBar';
 import Logout from './components/Logout';
 import ProductsList from './containers/ProductsList';
 import WelcomePage from './containers/WelcomePage';
+import ProductForm from './containers/ProductForm';
 import  { AuthContext }  from './context/auth-context';
 
 
@@ -25,8 +26,9 @@ function App() {
         <AppBar />
           <Switch>
             <Route exact path="/" component={WelcomePage} />
+            <Route path="/products/create" component={ProductForm} />       
             <Route path="/products" component={ProductsList} />
-            {!isAuth ? <Route path="/auth" component={Auth} /> : <Route path="/logout" component={Logout} />}            
+            {!isAuth ? <Route path="/auth" component={Auth} /> : <Route path="/logout" component={Logout} />}
             <Redirect path='*' to='/' />
           </Switch>
       </div>

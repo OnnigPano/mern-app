@@ -32,7 +32,7 @@ const ProductsList = () => {
                     allProducts.map(product => {
                         return (
                             <Grid item xs={12} sm={6} md={4} lg={3}  key={product._id}>
-                                {loading ? <Skeleton animation="wave"><ProductCard/></Skeleton> : <ProductCard  title={product.productName} />}
+                                {loading ? <Skeleton animation="wave"><ProductCard/></Skeleton> : <ProductCard  title={product.productName} description={product.description} price={product.price} />}
                             </Grid>
                         );    
                     })

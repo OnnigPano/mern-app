@@ -19,6 +19,6 @@ const fileFilter = function (req, file, cb) {
 }
 
 
-const upload = multer({ storage, fileFilter}).single('profileImage');
+const upload = multer({ storage, fileFilter}).single('image');
 
 module.exports = upload

@@ -23,9 +23,6 @@ const ProductCard = props => {
                     <CardMedia className={classes.media} image='/1595034870102.jpg' title={props.title} />
                     <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            asdadeqfafafqefasfefwrkweñofwelfnwñfeefnef
-                            efnpwefnwenfweofwefbwefobwefbwefb
-                            fbnwoefbweofbowefbwoefb
                             {props.description}
                         </Typography>
                     </CardContent>
@@ -37,7 +34,7 @@ const ProductCard = props => {
                     <IconButton>
                         <ShoppingCart />
                     </IconButton>
-                    
+                    {props.price}
                 </CardActions>
         </Card>
     );
