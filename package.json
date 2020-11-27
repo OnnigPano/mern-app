@@ -8,7 +8,7 @@
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "client:build": "cd client && npm run build",
-    "start:server": "node -r dotenv/config src/index.js",
+    "start:server": "node  src/index.js",
     "start:client": "npm start --prefix client",
     "start": "npm run start:server && npm run start:client"
   },
