@@ -17,23 +17,32 @@ app.use(morgan('dev'));
 //Validar JSON format
 app.use(express.json({
     verify: (req, res, buf, encoding) => {
-      try {
-        JSON.parse(buf);
-      } catch (e) {
-        res.status(400).json({ error: 'Invalid JSON' });
-        throw Error('invalid JSON');
-      }
+        try {
+            JSON.parse(buf);
+        } catch (e) {
+            res.status(400).json({ error: 'Invalid JSON' });
+            throw Error('invalid JSON');
+        }
     }
-  }));
+}));
 
 app.use('/api/v1/', userRouter);
 app.use('/api/v1/', productRouter);
 
-pp.get('*', function (req, res) {
-    res.status(404).json({ error: 'Route Not Found' });
+// This middleware informs the express application to serve our compiled React files
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+
+    app.get('*', function (req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+};
+
+app.get('*', function (req, res) {
+    res.status(404).json({
+        error: 'Route Not Found'
+    });
 });
 
 
-app.listen(PORT, () => {
-    console.log("Server runnig on port " + PORT)
-})
+app.listen(PORT, () => console.log("Server runnig on port " + PORT))
