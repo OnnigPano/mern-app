@@ -26,7 +26,7 @@ const AuthContextProvider = (props) => {
                 name: data.user.name,
                 img: data.user.profileImage
             })
-            console.log(data);
+
             return true;
         } catch (error) {
             console.log(error);
@@ -78,8 +78,9 @@ const AuthContextProvider = (props) => {
     const registerHandler = async (credentials) => {
         try {
             const user = await axios.post(process.env.REACT_APP_BASE_URL + '/users', credentials);
-            /* No guardo el token para que se vuelva a loguear la próxima vez */
-            console.log(user);
+
+            localStorage.setItem('token', user.data.token);
+
             if(user) {
                 setIsAuthenticated(true);
                 setUserData({

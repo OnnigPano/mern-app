@@ -17,6 +17,7 @@ const auth = async (req, res, next) => {
         req.user = user; // de ésta manera obtengo al usuario después de ejecutar el middleware
         next() //El next va acá porque todo sigue OK
     } catch (e) {
+        console.log(e.getMessage());
         return res.status(401).send({error: 'Please authenticate'});
     }
     
