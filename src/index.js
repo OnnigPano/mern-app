@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const compression = require('compression');
 // const dotenv = require('dotenv');
 // dotenv.config();
 
@@ -14,7 +14,8 @@ const productRouter = require('./routes/product');
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
-app.use('/static', express.static(path.join(__dirname, 'public')));
+app.use(compression());
+
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -40,7 +41,9 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
     app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
     });
-};
+} else {
+    app.use('/static', express.static(path.join(__dirname, 'public')));
+}
 
 app.get('*', function (req, res) {
     res.status(404).json({
