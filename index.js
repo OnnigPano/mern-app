@@ -6,10 +6,10 @@ const compression = require('compression');
 
 const path = require('path');
 const cors = require('cors')
-require('./database');
+require('./src/database');
 const morgan = require('morgan');
-const userRouter = require('./routes/user');
-const productRouter = require('./routes/product');
+const userRouter = require('./src/routes/user');
+const productRouter = require('./src/routes/product');
 
 const PORT = process.env.PORT || 5000;
 
