@@ -15,7 +15,7 @@ const userController = {
         try {
             //await user.save();
             const token = await user.generateToken();
-            res.status(201).json({ success: true, message: "User created successfully", data: user, token });
+            res.status(201).json({ success: true, message: "User created successfully", user, token });
         } catch (error) {
             res.status(400).json({ success: false, code: 400, message: error.message, error: error.errors });
         }
