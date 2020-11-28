@@ -13,6 +13,7 @@ también si el email registrado ya existe
 
 const useStyles = makeStyles({
     root: {
+        width: '96%',
         maxWidth: 400,
         marginRight: 'auto',
         marginLeft: 'auto',

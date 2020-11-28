@@ -9,7 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Store, Favorite, ShoppingCart, Info, PersonAdd, VpnKey, PowerSettingsNew } from '@material-ui/icons';
+import { Store, Favorite, ShoppingCart, Info, PersonAdd, VpnKey, PowerSettingsNew, MeetingRoom } from '@material-ui/icons';
 import ListItemLink from './ListItemLink';
 
 
@@ -31,8 +31,8 @@ export default function TemporaryDrawer(props) {
 
   const authButtons = (
     <div>
-      <ListItemLink to="/auth" primary="Iniciar Sesión" icon={<VpnKey/>} />
-      <ListItemLink to="/auth" primary="Registrarse" icon={<PersonAdd/>} />
+      {/* <ListItemLink to={{pathname: "/auth", state: {isLogin: true}}} primary="Iniciar Sesión" icon={<VpnKey/>} /> */}
+      <ListItemLink to="/auth" primary="Ingresar" icon={<MeetingRoom/>} />
     </div>
   );
   
@@ -53,7 +53,9 @@ export default function TemporaryDrawer(props) {
             {authContext.isAuth ? authContext.user.name : 'Bienvenido'}
           </Typography>
         </ListItem>
+      </List>
         <Divider />
+      <List>  
         {!authContext.isAuth ? authButtons : logOutButton}
       </List>
       <Divider />
