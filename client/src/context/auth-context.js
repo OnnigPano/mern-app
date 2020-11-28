@@ -17,7 +17,7 @@ const AuthContextProvider = (props) => {
 
     const loginHandler = async (credentials) => {
         try {
-            const { data } = await axios.post('http://localhost:5000/users/login', credentials);
+            const { data } = await axios.post('http://localhost:5000/api/v1/users/login', credentials);
             localStorage.setItem('token', data.token);
             setIsAuthenticated(true);
             setUserData({
@@ -35,7 +35,7 @@ const AuthContextProvider = (props) => {
     const logoutHandler = async () => {
         const token = localStorage.getItem('token');
         try {
-            await axios.post('http://localhost:5000/users/logout', {} , {
+            await axios.post('http://localhost:5000/api/v1/users/logout', {} , {
                     headers: {
                         'Authorization': 'Bearer ' + token
                     }
@@ -52,7 +52,7 @@ const AuthContextProvider = (props) => {
         const token = localStorage.getItem('token');
         if(token) {
             try {
-                const user = await axios.get('http://localhost:5000/users/me', {
+                const user = await axios.get('http://localhost:5000/api/v1/users/me', {
                     headers: {
                         'Authorization': 'Bearer ' + token
                     }
@@ -76,7 +76,7 @@ const AuthContextProvider = (props) => {
 
     const registerHandler = async (credentials) => {
         try {
-            const user = await axios.post('http://localhost:5000/users', credentials);
+            const user = await axios.post('http://localhost:5000/api/v1/users', credentials);
             /* No guardo el token para que se vuelva a loguear la próxima vez */
             if(user) {
                 setIsAuthenticated(true);

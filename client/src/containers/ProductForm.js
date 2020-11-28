@@ -47,7 +47,7 @@ const ProductForm = () => {
     const submitHandler = async (event) => {
         event.preventDefault();
         try {
-            const product = await axios.post('http://localhost:5000/products', values)
+            const product = await axios.post('http://localhost:5000/api/v1/products', values)
             console.log(product);
         } catch (error) {
             console.log(error);
