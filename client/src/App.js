@@ -12,6 +12,9 @@ import  { AuthContext }  from './context/auth-context';
 
 function App() {
 
+  var height = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${height}px`);
+
   const { isAuth, checkToken } = useContext(AuthContext);
 
   useEffect(() => {
@@ -22,7 +25,7 @@ function App() {
   }, []);
   
   return (
-      <div className="App">
+      <div className="App" style={{ height: 'calc(var(--vh, 1vh) * 100)' }}>
         <AppBar />
           <Switch>
             <Route exact path="/" component={WelcomePage} />
