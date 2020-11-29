@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: calc(100 * var(--vh))">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
@@ -26,6 +26,12 @@
     -->
     <title>Kimbalache Store</title>
   </head>
+
+  <script>
+         document.querySelector(':root').style
+    .setProperty('--vh', window.innerHeight/100 + 'px');
+  </script>
+  
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
