@@ -41,8 +41,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Welcome = () => {
+
+    
+
     const classes = useStyles();
-    return (    
+    return (
             <BackImg>
                 <div>
                  <Typography className={classes.title} variant="h1" component="h1" align="center">Kimbalache Store</Typography>

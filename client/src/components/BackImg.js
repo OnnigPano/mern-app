@@ -11,11 +11,11 @@ const useStyles = makeStyles(theme => ({
     root: {
         [theme.breakpoints.down('sm')]: {
             backgroundImage: `url(${dogImage})`,
-            height: '100%',
+            height: `calc(${document.querySelector('html').offsetHeight}px - 56px)`,
         },
         [theme.breakpoints.up('sm')]: {
             backgroundImage: `url(${dogImage2})`,
-            height: 'calc(100vh - 64px)',
+            height: `calc(${document.querySelector('html').offsetHeight}px - 64px)`,
         },
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -28,7 +28,7 @@ const BackgroundImage = props => {
     const classes = useStyles();
 
     return (    
-            <div className={classes.root} >
+            <div className={classes.root}>
                 {props.children}
             </div>
     );
