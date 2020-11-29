@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down('sm')]: {
             backgroundImage: `url(${dogImage})`,
             height: `calc(${document.querySelector('html').offsetHeight}px - 56px)`,
+            paddingTop: '50px'
         },
         [theme.breakpoints.up('sm')]: {
             backgroundImage: `url(${dogImage2})`,
