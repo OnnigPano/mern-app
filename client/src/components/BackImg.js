@@ -4,11 +4,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import dogImage from '../imgs/dog1.webp';
 import dogImage2 from '../imgs/dog4.jpg';
 
+
+
 const useStyles = makeStyles(theme => ({
+
     root: {
         [theme.breakpoints.down('sm')]: {
             backgroundImage: `url(${dogImage})`,
-            height: 'calc(100vh - 56px)',
+            height: '100%',
         },
         [theme.breakpoints.up('sm')]: {
             backgroundImage: `url(${dogImage2})`,
