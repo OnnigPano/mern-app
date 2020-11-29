@@ -24,7 +24,6 @@ const useStyles = makeStyles(theme => ({
     title: {
         fontFamily: 'Shadows Into Light!important',
         color: 'white',
-        paddingTop: '20px',
         [theme.breakpoints.down('sm')]: {
             fontSize: '4rem'
         }
@@ -34,7 +33,7 @@ const useStyles = makeStyles(theme => ({
         color: 'white',
         [theme.breakpoints.down('sm')]: {
             fontSize: '2rem',
-            marginBottom: '220px'
+            marginBottom: '150px'
         },
         marginBottom: '300px'
     }
