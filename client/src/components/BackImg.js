@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import dogImage from '../imgs/dog1.webp';
-import dogImage2 from '../imgs/dog4.jpg';
+import dogImage from '../imgs/dog.webp';
+import dogImage2 from '../imgs/dog2.jpg';
 
 
 

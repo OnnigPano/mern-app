@@ -47,7 +47,7 @@ const ProductForm = () => {
     const submitHandler = async (event) => {
         event.preventDefault();
         try {
-            const product = await axios.post(process.env.BASE_URL + '/products', values)
+            const product = await axios.post(`${process.env.REACT_APP_BASE_URL}/products`, values)
             console.log(product);
         } catch (error) {
             console.log(error);
@@ -55,12 +55,33 @@ const ProductForm = () => {
     }
 
     return (
-        <Container>
-            <form noValidate style={{ width: '100%', maxWidth: '600px', margin: '30px auto' }} onSubmit={(e) => submitHandler(e)} >
+        <Container maxWidth="lg">
+            <form
+                noValidate
+                style={{ width: '100%', maxWidth: '600px', margin: '30px auto' }}
+                onSubmit={(e) => submitHandler(e)}
+            >
                 <FormGroup>
-                    <TextField onChange={handleChange} name="productName" color="secondary" label="Nombre del producto" variant="outlined" type="text" margin="dense" />
-                    <TextField onChange={handleChange} name="category" color="secondary" label="Categoria" variant="outlined" type="text" margin="dense" />
-                    <TextField color="secondary"
+                    <TextField
+                        onChange={handleChange}
+                        name="productName"
+                        color="secondary"
+                        label="Nombre del producto"
+                        variant="outlined"
+                        type="text"
+                        margin="dense"
+                    />
+                    <TextField
+                        onChange={handleChange}
+                        name="category"
+                        color="secondary"
+                        label="Categoria"
+                        variant="outlined"
+                        type="text"
+                        margin="dense"
+                    />
+                    <TextField
+                        color="secondary"
                         name="price"
                         margin="dense"
                         variant="outlined"
@@ -71,12 +92,39 @@ const ProductForm = () => {
                             inputComponent: NumberFormatCustom
                         }}
                     />
-                    <Button onChange={handleFileUpload} style={{ marginTop: '8px' }} variant="contained" component="label">
+                    <Button
+                        onChange={handleFileUpload}
+                        style={{ marginTop: '8px' }}
+                        variant="contained"
+                        component="label"
+                    >
                         Subir Imágen
-                        <input accept="image/*" name="image" type="file" style={{ display: "none" }} />
+                        <input
+                            accept="image/*"
+                            name="image"
+                            type="file"
+                            style={{ display: "none" }}
+                        />
                     </Button>
-                    <TextField name="description" onChange={handleChange} style={{ marginTop: '8px' }} color="secondary" label="Descripción" variant="outlined" fullWidth multiline rows={4} />
-                    <Button style={{ marginTop: '8px' }} variant="contained" color="secondary" type="submit" >Crear Producto</Button>
+                    <TextField
+                        name="description"
+                        onChange={handleChange}
+                        style={{ marginTop: '8px' }}
+                        color="secondary"
+                        label="Descripción"
+                        variant="outlined"
+                        fullWidth
+                        multiline
+                        rows={4}
+                    />
+                    <Button
+                        style={{ marginTop: '8px' }}
+                        variant="contained"
+                        color="secondary"
+                        type="submit"
+                    >
+                        Crear Producto
+                    </Button>
                 </FormGroup>
             </form>
         </Container>
