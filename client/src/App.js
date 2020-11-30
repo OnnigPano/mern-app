@@ -25,7 +25,7 @@ function App() {
         <AppBar />
           <Switch>
             <Route exact path="/" component={WelcomePage} />
-            <Route path="/products/create" component={ProductForm} />       
+            {/* <Route path="/products/create" component={ProductForm} />        */}
             <Route path="/products" component={ProductsList} />
             {!isAuth ? <Route path="/auth" component={Auth} /> : <Route path="/logout" component={Logout} />}
             <Redirect path='*' to='/' />

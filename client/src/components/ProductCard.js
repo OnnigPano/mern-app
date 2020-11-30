@@ -20,7 +20,7 @@ const ProductCard = props => {
         <Card className={classes.root}>
                 <CardActionArea>
                     <CardHeader title={props.title} />
-                    <CardMedia className={classes.media} image='/1595034870102.jpg' title={props.title} />
+                    <CardMedia className={classes.media} image='/product1.jpg' title={props.title} />
                     <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">
                             {props.description}
