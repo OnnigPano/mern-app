@@ -7,7 +7,6 @@ import { Skeleton } from '@material-ui/lab';
 import ProductCard from '../components/ProductCard';
 import ProductForm from '../containers/ProductForm';
 
-// Estilos momentaneos
 const styles = {
     fab: {
         position: 'fixed',
