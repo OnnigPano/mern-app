@@ -10,9 +10,10 @@ import ProductForm from '../containers/ProductForm';
 // Estilos momentaneos
 const styles = {
     fab: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: '20px',
-        left: '20px'
+        right: '20px',
+        zIndex: '10'
     }
 }
 
@@ -28,38 +29,61 @@ const ProductsList = () => {
     const getAllProducts = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/products`)
-            setAllProducts([response.data]);
+            setAllProducts(response.data);
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            console.log(error.response);
         }
     }
 
     return (
         <Fragment>
-            <Dialog maxWidth="lg" onClose={() => showAddForm(false)} open={addForm} fullWidth={true} maxWidth="sm"><ProductForm /></Dialog>
-            <Grid container spacing={3} >
+
+            <Dialog
+                onClose={() => showAddForm(false)}
+                open={addForm}
+                fullWidth={true}
+                maxWidth="sm"
+            >
+                <ProductForm callbackFromParent={showAddForm} />
+            </Dialog>
+
+            <Grid
+                container
+                direction="row"
+                justify="space-evenly"
+                alignItems="flex-start"
+                spacing={3}
+            >
                 {
                     allProducts.map(product => {
                         return (
                             <Grid
-                                item xs={12}
+                                item
+                                xs={11}
                                 sm={6}
                                 md={4}
                                 lg={3}
                                 key={product._id}
                             >
                                 {loading ? <Skeleton animation="wave"><ProductCard /></Skeleton>
-                                    : <ProductCard  title={product.productName} description={product.description} price={product.price} />}
+                                    : <ProductCard title={product.productName} description={product.description} price={product.price} />}
                             </Grid>
                         );
                     })
                 }
             </Grid>
-            <Fab style={styles.fab} onClick={() => showAddForm(true)} color="secondary" size="large" aria-label="add">
+
+            <Fab
+                style={styles.fab}
+                onClick={() => showAddForm(true)}
+                color="secondary"
+                size="large"
+                aria-label="add"
+            >
                 <AddIcon />
             </Fab>
+
         </Fragment>
     );
 }

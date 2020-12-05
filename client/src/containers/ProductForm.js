@@ -27,7 +27,7 @@ function NumberFormatCustom(props) {
 }
 
 
-const ProductForm = () => {
+const ProductForm = (props) => {
     const [values, setValues] = useState({});
 
     const handleChange = (event) => {
@@ -56,12 +56,18 @@ const ProductForm = () => {
 
     return (
         <Container maxWidth="lg">
+
             <form
                 noValidate
                 style={{ width: '100%', maxWidth: '600px', margin: '30px auto' }}
-                onSubmit={(e) => submitHandler(e)}
+                onSubmit={(e) => { 
+                    submitHandler(e);
+                    //if there are no validation errors
+                    props.callbackFromParent(false);
+                }}
             >
                 <FormGroup>
+
                     <TextField
                         onChange={handleChange}
                         name="productName"
@@ -71,6 +77,7 @@ const ProductForm = () => {
                         type="text"
                         margin="dense"
                     />
+
                     <TextField
                         onChange={handleChange}
                         name="category"
@@ -80,6 +87,7 @@ const ProductForm = () => {
                         type="text"
                         margin="dense"
                     />
+
                     <TextField
                         color="secondary"
                         name="price"
@@ -92,9 +100,10 @@ const ProductForm = () => {
                             inputComponent: NumberFormatCustom
                         }}
                     />
+
                     <Button
                         onChange={handleFileUpload}
-                        style={{ marginTop: '8px' }}
+                        style={{ marginTop: '8px', backgroundColor: 'lightblue' }}
                         variant="contained"
                         component="label"
                     >
@@ -106,6 +115,7 @@ const ProductForm = () => {
                             style={{ display: "none" }}
                         />
                     </Button>
+
                     <TextField
                         name="description"
                         onChange={handleChange}
@@ -117,6 +127,7 @@ const ProductForm = () => {
                         multiline
                         rows={4}
                     />
+
                     <Button
                         style={{ marginTop: '8px' }}
                         variant="contained"
@@ -125,8 +136,11 @@ const ProductForm = () => {
                     >
                         Crear Producto
                     </Button>
+
                 </FormGroup>
+
             </form>
+
         </Container>
     );
 }

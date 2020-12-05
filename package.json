@@ -9,8 +9,8 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "client:build": "cd client && npm run build",
     "start:server": "node index.js",
-    "start:client": "npm start --prefix client",
-    "start": "npm run start:server && npm run start:client"
+    
+    "start": "npm run start:server"
   },
   "keywords": [],
   "author": "",
