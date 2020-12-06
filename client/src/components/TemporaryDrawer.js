@@ -1,4 +1,4 @@
-import React, { useContext } from'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../context/auth-context';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,7 +9,16 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Store, Favorite, ShoppingCart, Info, PersonAdd, VpnKey, PowerSettingsNew, MeetingRoom } from '@material-ui/icons';
+import {
+    Store,
+    Favorite,
+    ShoppingCart,
+    Info,
+    /* PersonAdd,
+    VpnKey */
+    PowerSettingsNew,
+    MeetingRoom
+} from '@material-ui/icons';
 import ListItemLink from './ListItemLink';
 
 
@@ -32,12 +41,12 @@ export default function TemporaryDrawer(props) {
   const authButtons = (
     <div>
       {/* <ListItemLink to={{pathname: "/auth", state: {isLogin: true}}} primary="Iniciar Sesión" icon={<VpnKey/>} /> */}
-      <ListItemLink to="/auth" primary="Ingresar" icon={<MeetingRoom/>} />
+      <ListItemLink to="/auth" primary="Ingresar" icon={<MeetingRoom />} />
     </div>
   );
-  
+
   const logOutButton = (
-    <ListItemLink to="/logout" primary="Cerrar Sesión" icon={<PowerSettingsNew/>} />
+    <ListItemLink to="/logout" primary="Cerrar Sesión" icon={<PowerSettingsNew />} />
   );
 
   const list = (
@@ -45,7 +54,7 @@ export default function TemporaryDrawer(props) {
       className={classes.list}
       role="presentation"
       onClick={props.toggleDrawer}
-    > 
+    >
       <List>
         <ListItem>
           <Avatar src={authContext.user.profileImage} className={classes.avatar} />
@@ -54,34 +63,34 @@ export default function TemporaryDrawer(props) {
           </Typography>
         </ListItem>
       </List>
-        <Divider />
-      <List>  
+      <Divider />
+      <List>
         {!authContext.isAuth ? authButtons : logOutButton}
       </List>
       <Divider />
       <List>
-          <ListItemLink to="/products" primary="Productos" icon={<Store/>} />
-          <ListItem button component={Link} to="/favs">
-            <ListItemIcon> <Favorite/> </ListItemIcon>
-            <ListItemText primary="Favoritos" />
-          </ListItem>
-          <ListItem button component={Link} to="/cart">
-            <ListItemIcon> <ShoppingCart/> </ListItemIcon>
-            <ListItemText primary="Mi Carrito" />
-          </ListItem>
-          <Divider />
-          <ListItem button component={Link} to="/about">
-            <ListItemIcon> <Info/> </ListItemIcon>
-            <ListItemText primary="Nosotros" />
-          </ListItem>
+        <ListItemLink to="/products" primary="Productos" icon={<Store />} />
+        <ListItem button component={Link} to="/favs">
+          <ListItemIcon> <Favorite /> </ListItemIcon>
+          <ListItemText primary="Favoritos" />
+        </ListItem>
+        <ListItem button component={Link} to="/cart">
+          <ListItemIcon> <ShoppingCart /> </ListItemIcon>
+          <ListItemText primary="Mi Carrito" />
+        </ListItem>
+        <Divider />
+        <ListItem button component={Link} to="/about">
+          <ListItemIcon> <Info /> </ListItemIcon>
+          <ListItemText primary="Nosotros" />
+        </ListItem>
       </List>
-      
+
     </div>
   );
 
   return (
-          <Drawer anchor='left' open={props.drawerState} onClose={props.toggleDrawer}>
-            {list}
-          </Drawer>
-      );
+    <Drawer anchor='left' open={props.drawerState} onClose={props.toggleDrawer}>
+      {list}
+    </Drawer>
+  );
 }

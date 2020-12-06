@@ -6,7 +6,6 @@ import AppBar from './components/AppBar';
 import Logout from './components/Logout';
 import ProductsList from './containers/ProductsList';
 import WelcomePage from './containers/WelcomePage';
-import ProductForm from './containers/ProductForm';
 import  { AuthContext }  from './context/auth-context';
 
 
