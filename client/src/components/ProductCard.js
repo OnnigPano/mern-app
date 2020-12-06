@@ -5,7 +5,6 @@ import {
     CardHeader,
     CardMedia,
     CardContent,
-    CardActionArea,
     Typography,
     CardActions,
     IconButton
@@ -38,42 +37,38 @@ const ProductCard = props => {
     return (
         <Card className={classes.root}>
 
-            <CardActionArea>
+            <CardMedia className={classes.media} image='/product1.jpg' title={props.title} />
 
-                <CardHeader title={props.title} />
+            <CardHeader title={props.title} />
 
-                <CardMedia className={classes.media} image='/product1.jpg' title={props.title} />
+            <CardContent>
 
-                <CardContent>
+                <Typography variant="body2" color="textSecondary" component="p">
+                    {props.description}
+                </Typography>
 
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {props.description}
-                    </Typography>
+            </CardContent>
 
-                </CardContent>
+                <CardActions disableSpacing>
 
-            </CardActionArea>
+                    <IconButton>
+                        <Favorite />
+                    </IconButton>
 
-            <CardActions>
+                    <IconButton>
+                        <ShoppingCart />
+                    </IconButton>
 
-                <IconButton>
-                    <Favorite />
-                </IconButton>
+                    <IconButton aria-label="share">
+                        <Share />
+                    </IconButton>
 
-                <IconButton>
-                    <ShoppingCart />
-                </IconButton>
+                    <span style={{ fontSize: 'x-large' }} >
+                        {currencyFormatter.format(Number(props.price))}
+                    </span>
 
-                <IconButton aria-label="share">
-                    <Share />
-                </IconButton>
 
-                <p style={{ fontSize: 'x-large' }} >
-                    {currencyFormatter.format(Number(props.price))}
-                </p>
-                
-
-            </CardActions>
+                </CardActions>
 
         </Card>
     );

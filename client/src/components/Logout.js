@@ -8,7 +8,7 @@ const Logout = props => {
     useEffect(() => {
         authContext.logout();
         props.history.push('/');
-    }, []);
+    });
 
     return null;
 }

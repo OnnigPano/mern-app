@@ -1,6 +1,10 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Grid, Dialog } from "@material-ui/core";
+import {
+    Grid,
+    Dialog,
+    Container
+} from "@material-ui/core";
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { Skeleton } from '@material-ui/lab';
@@ -17,7 +21,7 @@ const styles = {
 }
 
 const ProductsList = () => {
-    const [allProducts, setAllProducts] = useState([]);
+    const [allProducts, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [addForm, showAddForm] = useState(false);
 
@@ -28,15 +32,22 @@ const ProductsList = () => {
     const getAllProducts = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/products`)
-            setAllProducts(response.data);
+            setProducts(response.data);
             setLoading(false);
         } catch (error) {
             setLoading(false);
         }
     }
 
+    function addProductToList(product) {
+        setProducts([
+            ...allProducts,
+            product
+        ]);
+    }
+
     return (
-        <Fragment>
+        <Container>
 
             <Dialog
                 onClose={() => showAddForm(false)}
@@ -44,7 +55,7 @@ const ProductsList = () => {
                 fullWidth={true}
                 maxWidth="sm"
             >
-                <ProductForm callbackFromParent={showAddForm} />
+                <ProductForm handleDialog={showAddForm} addProductToList={addProductToList} />
             </Dialog>
 
             <Grid
@@ -55,15 +66,15 @@ const ProductsList = () => {
                 spacing={3}
             >
                 {
-                    allProducts.map(product => {
+                    allProducts.map((product, index) => {
                         return (
                             <Grid
                                 item
-                                xs={11}
+                                xs={12}
                                 sm={6}
                                 md={4}
                                 lg={3}
-                                key={product._id}
+                                key={index}
                             >
                                 {loading ? <Skeleton animation="wave"><ProductCard /></Skeleton>
                                     : <ProductCard title={product.productName} description={product.description} price={product.price} />}
@@ -83,7 +94,7 @@ const ProductsList = () => {
                 <AddIcon />
             </Fab>
 
-        </Fragment>
+        </Container>
     );
 }
 

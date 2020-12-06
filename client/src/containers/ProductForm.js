@@ -63,7 +63,8 @@ const ProductForm = (props) => {
                 onSubmit={(e) => { 
                     submitHandler(e);
                     //if there are no validation errors
-                    props.callbackFromParent(false);
+                    props.handleDialog(false);
+                    props.addProductToList(values);
                 }}
             >
                 <FormGroup>

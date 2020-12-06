@@ -13,7 +13,7 @@ también si el email registrado ya existe
 
 const useStyles = makeStyles({
     root: {
-        width: '96%',
+        width: '94%',
         maxWidth: 400,
         marginRight: 'auto',
         marginLeft: 'auto',
@@ -42,7 +42,7 @@ const Auth = (props) => {
     const [nameValue, setNameValue] = useState('');
     const [loginError, setLoginError] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [isRegister, setIsRegister] = useState(true);
+    const [isRegister, setIsRegister] = useState(false);
     const [registerErrors, setRegisterErrors] = useState({
         email: {
             error: false,
