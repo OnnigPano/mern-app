@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
+import ShoppingCartOutlined from '@material-ui/icons/ShoppingCartOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import TemporaryDrawer from './TemporaryDrawer';
 import Slide from '@material-ui/core/Slide';
@@ -120,12 +121,19 @@ export default function SearchAppBar(props) {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </div>
+            <IconButton
+              edge="end"
+              color="inherit"
+              aria-label="go to cart"
+            >
+              <ShoppingCartOutlined />
+            </IconButton>
           </Toolbar>
         </AppBar>
-        
+
       </HideOnScroll>
 
-      <Toolbar/>
+      <Toolbar />
     </div>
   );
 }

@@ -8,7 +8,7 @@ import {
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { Skeleton } from '@material-ui/lab';
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../components/ProductCard/ProductCard';
 import ProductForm from '../containers/ProductForm';
 
 const styles = {
@@ -47,7 +47,7 @@ const ProductsList = () => {
     }
 
     return (
-        <Container>
+        <Container style={{ marginTop: '20px' }}>
 
             <Dialog
                 onClose={() => showAddForm(false)}
@@ -70,7 +70,7 @@ const ProductsList = () => {
                         return (
                             <Grid
                                 item
-                                xs={12}
+                                xs={6}
                                 sm={6}
                                 md={4}
                                 lg={3}
