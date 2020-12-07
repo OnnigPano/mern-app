@@ -3,10 +3,11 @@ const app = express();
 const compression = require('compression');
 const path = require('path');
 const cors = require('cors')
-const dbConnect = require('./src/database');
+const dbConnect = require('./database');
 const morgan = require('morgan');
 const userRouter = require('./src/routes/user');
 const productRouter = require('./src/routes/product');
+const cartRouter = require('./src/routes/cart');
 
 const PORT = process.env.PORT || 5000;
 
@@ -29,6 +30,7 @@ app.use(express.json({
 
 app.use('/api/v1/', userRouter);
 app.use('/api/v1/', productRouter);
+app.use('/api/v1/', cartRouter);
 
 
 /*

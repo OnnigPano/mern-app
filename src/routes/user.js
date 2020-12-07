@@ -10,8 +10,5 @@ router.post('/users/logoutAll', auth, userController.logoutAll);
 router.get('/users/me', auth, userController.getUser);
 router.delete('/users/me', auth, userController.deleteAuthUser);
 router.post('/users/avatar', auth, userController.uploadAvatar);
-router.get('/cart/add/:id', auth, userController.addProductToCart);
-router.delete('/cart/delete/:id', auth, userController.deleteProductFromCart);
-router.get('/cart', auth, userController.getCart);
 
 module.exports = router;
