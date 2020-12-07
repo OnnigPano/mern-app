@@ -48,7 +48,6 @@ const ProductForm = (props) => {
         event.preventDefault();
         try {
             const product = await axios.post(`${process.env.REACT_APP_BASE_URL}/products`, values)
-            console.log(product);
         } catch (error) {
             console.log(error);
         }

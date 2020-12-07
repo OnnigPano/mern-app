@@ -21,7 +21,6 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
     currency: 'USD',
 });
 
-
 function ProductCard(props) {
     const classes = useStyles();
     return (
@@ -45,7 +44,7 @@ function ProductCard(props) {
                     <FavoriteBorder />
                 </IconButton>
 
-                <IconButton>
+                <IconButton onClick={() => props.addProductToCart(props.id)}>
                     <AddShoppingCart />
                 </IconButton>
 

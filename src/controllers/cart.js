@@ -11,7 +11,7 @@ const cartController = {
             }
             req.user.cartProducts.push(product);
             await req.user.save()
-            res.json(req.user.cartProducts);
+            res.json(product);
         } catch (e) {
             res.status(400).json(e);
         }
