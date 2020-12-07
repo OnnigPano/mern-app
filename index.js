@@ -38,11 +38,7 @@ app.use('/api/v1/', cartRouter);
     de rutas no existentes
 */
 
-    app.get('*', function (req, res) {
-    res.status(404).json({
-        error: 'Route Not Found'
-    });
-});
+
 // This middleware informs the express application to serve our compiled React files
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
     app.use(express.static(path.join(__dirname, 'client/build')));
@@ -53,5 +49,11 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
 } else {
     app.use('/static', express.static(path.join(__dirname, 'public')));
 }
+
+app.get('*', function (req, res) {
+    res.status(404).json({
+        error: 'Route Not Found'
+    });
+});
 
 app.listen(PORT, () => console.log("Server runnig on port " + PORT))
