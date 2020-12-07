@@ -9,9 +9,3 @@ consumida del lado del cliente con Reactjs.
 
 Uso MongoDB Atlas para alojar la base de datos.
 Deploy realizado en Heroku.
-
-Funcionalidades en producción:
-
-Registro de Usuario con JWT
-Login
-Logout
