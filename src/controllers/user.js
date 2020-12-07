@@ -5,9 +5,6 @@ const upload = require('../utils/uploader');
 const userController = {
     createUser: async (req, res) => {
 
-        /*
-            Falta manejar errores, sobretodo los que vienen desde MongoDB 
-         */
         const user = new User(req.body);
         if (!user) {
             return res.status(400).json({ success: false, code: 400, message: 'Error creating User' })
@@ -76,40 +73,6 @@ const userController = {
                 res.json(req.user)
             }
         })
-    },
-    addProductToCart: async (req, res) => {
-
-        try {
-            const product = await Product.findById(req.params.id)
-            if (!product) {
-                return res.status(404).json({ error: "Product not found" })
-            }
-            req.user.cartProducts.push(product)
-            await req.user.save()
-            res.json(req.user.cartProducts)
-        } catch (e) {
-            res.json(e)
-        }
-    },
-    getCart: async (req, res) => {
-
-        try {
-            const products = await req.user.populate('cartProducts').execPopulate()
-            res.json(products)
-        } catch (e) {
-            res.json(e)
-        }
-
-    },
-    deleteProductFromCart: async (req, res) => {
-        try {
-            //removes all de refs with that ID but it should only remove ONE.
-            req.user.cartProducts.pull(req.params.id);
-            await req.user.save()
-            res.json(req.user)
-        } catch (e) {
-            res.status(404).json(e)
-        }
     }
 }
 

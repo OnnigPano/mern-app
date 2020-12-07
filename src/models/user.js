@@ -42,7 +42,11 @@ const userSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product'
     }],
-    ageOfBirth: {
+    favs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
+    }],
+    dateOfBirth: {
         type: Date
     },
     tokens: [{

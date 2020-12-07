@@ -33,9 +33,9 @@ const productController = {
     },
     delete: async (req, res) => {
         try {
-            const user = await User.findById(req.user.id);
+            // const user = await User.findById(req.user.id);
             
-            if(user.admin) {
+            if(req.user.admin) {
                 const product = await Product.findByIdAndDelete(req.params.id);
                 if(!product) {
                 return res.status(404).json({error: "Product not found"})

@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import {
     Grid,
     Dialog,
-    Container
+    Container,
+    Backdrop,
+    CircularProgress
 } from "@material-ui/core";
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import { Skeleton } from '@material-ui/lab';
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../components/ProductCard/ProductCard';
 import ProductForm from '../containers/ProductForm';
+import AuthDialog from '../components/AuthDialog';
+import { AuthContext } from '../context/auth-context';
 
 const styles = {
     fab: {
@@ -24,6 +27,9 @@ const ProductsList = () => {
     const [allProducts, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [addForm, showAddForm] = useState(false);
+    const [authMessage, setAuthMessage] = useState(false);
+
+    const authContext = useContext(AuthContext);
 
     useEffect(() => {
         getAllProducts();
@@ -46,8 +52,25 @@ const ProductsList = () => {
         ]);
     }
 
+    function addToCart(id) {
+        if (authContext.isAuth) {
+            try {
+                const token = localStorage.getItem('token');
+                axios.post(process.env.REACT_APP_BASE_URL + '/cart', { id: id }, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        } else {
+            setAuthMessage(true);
+        }
+    }
+
     return (
-        <Container>
+        <Container style={{ marginTop: '20px' }}>
 
             <Dialog
                 onClose={() => showAddForm(false)}
@@ -57,6 +80,8 @@ const ProductsList = () => {
             >
                 <ProductForm handleDialog={showAddForm} addProductToList={addProductToList} />
             </Dialog>
+
+            {authMessage ? <AuthDialog handleClose={setAuthMessage} /> : null}
 
             <Grid
                 container
@@ -70,14 +95,19 @@ const ProductsList = () => {
                         return (
                             <Grid
                                 item
-                                xs={12}
+                                xs={6}
                                 sm={6}
                                 md={4}
                                 lg={3}
                                 key={index}
                             >
-                                {loading ? <Skeleton animation="wave"><ProductCard /></Skeleton>
-                                    : <ProductCard title={product.productName} description={product.description} price={product.price} />}
+                                {loading ?
+                                    <Backdrop open={loading}>
+                                        <CircularProgress color="primary" />
+                                    </Backdrop>
+                                    :
+                                    <ProductCard addProductToCart={addToCart} id={product._id} title={product.productName} description={product.description} price={product.price} />
+                                }
                             </Grid>
                         );
                     })
