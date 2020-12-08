@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ProductCard from '../components/ProductCard/ProductCard';
 import ProductForm from '../containers/ProductForm';
 import AuthDialog from '../components/AuthDialog';
+import CustomizedSnackbars from '../components/SnackBar/SnackBar';
 import { AuthContext } from '../context/auth-context';
 
 const styles = {
@@ -28,6 +29,7 @@ const ProductsList = () => {
     const [loading, setLoading] = useState(true);
     const [addForm, showAddForm] = useState(false);
     const [authMessage, setAuthMessage] = useState(false);
+    const [snackBar, handleSnackBar] = useState({ open: false, severity: "success", message: "Añadido al carrito!" });
 
     const authContext = useContext(AuthContext);
 
@@ -61,11 +63,18 @@ const ProductsList = () => {
                         'Authorization': 'Bearer ' + token
                     }
                 });
+                handleSnackBar({ ...snackBar, open: true, severity: "success", message: "Añadido al carrito!" });
             } catch (e) {
                 console.log(e);
             }
         } else {
             setAuthMessage(true);
+        }
+    }
+
+    function addToFavs() {
+        if (authContext.isAuth) {
+            handleSnackBar({ ...snackBar, open: true, severity: "warning", message: "Funcionalidad en desarrollo :)" })
         }
     }
 
@@ -106,7 +115,7 @@ const ProductsList = () => {
                                         <CircularProgress color="primary" />
                                     </Backdrop>
                                     :
-                                    <ProductCard addProductToCart={addToCart} id={product._id} title={product.productName} description={product.description} price={product.price} />
+                                    <ProductCard addToFavs={addToFavs} addProductToCart={addToCart} id={product._id} title={product.productName} description={product.description} price={product.price} />
                                 }
                             </Grid>
                         );
@@ -123,7 +132,7 @@ const ProductsList = () => {
             >
                 <AddIcon />
             </Fab>
-
+            <CustomizedSnackbars snackBarState={snackBar} handleFromParent={handleSnackBar} />
         </Container>
     );
 }

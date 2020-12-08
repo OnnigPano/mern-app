@@ -42,7 +42,7 @@ function ProductCard(props) {
 
             <CardActions className={classes.actions} disableSpacing>
 
-                <IconButton className={classes.fav}>
+                <IconButton className={classes.fav} onClick={() => props.addToFavs()}>
                     <FavoriteBorder />
                 </IconButton>
     
