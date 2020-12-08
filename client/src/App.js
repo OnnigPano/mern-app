@@ -2,10 +2,11 @@ import React, { useContext, useEffect } from 'react';
 import './App.css';
 import { Switch, Route, Redirect } from "react-router-dom";
 import Auth from './containers/Auth';
-import AppBar from './components/AppBar';
+import AppBar from './components/AppBar/AppBar';
 import Logout from './components/Logout';
 import ProductsList from './containers/ProductsList';
 import WelcomePage from './containers/WelcomePage';
+import Cart from './containers/Cart/Cart';
 import  { AuthContext }  from './context/auth-context';
 
 
@@ -27,6 +28,7 @@ function App() {
             {/* <Route path="/products/create" component={ProductForm} />        */}
             <Route path="/products" component={ProductsList} />
             {!isAuth ? <Route path="/auth" component={Auth} /> : <Route path="/logout" component={Logout} />}
+            <Route path="/cart" component={Cart}/>          
             <Redirect path='*' to='/' />
           </Switch>
       </div>

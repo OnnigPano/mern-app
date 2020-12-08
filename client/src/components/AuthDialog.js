@@ -3,23 +3,23 @@ import {
     Dialog,
     Button
 } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 
 
 
 const AuthDialog = (props) => {
-    
-    function handleClose() {
-        setDialog(false);
-    }
 
-    const [open, setDialog] = useState(true);
+    const [redirect, willRedirect] = useState(false);
 
     return (
-        <Dialog onClose={() => props.handleClose(false)} open={open}>
-            <Button variant="outlined"  color="primary" size='large' onClick={() => window.location = '/auth'}>
-                Iniciar Sesión
-            </Button>
-        </Dialog>
+        <React.Fragment>
+            {redirect ? <Redirect to="/auth" /> : null}
+            <Dialog onClose={() => props.handleClose(false)} open={true}>
+                <Button variant="outlined" color="primary" size='large' onClick={() => willRedirect(true)}>
+                    Iniciar Sesión
+                </Button>
+            </Dialog>
+        </React.Fragment>
     );
 }
 
