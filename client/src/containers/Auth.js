@@ -89,7 +89,11 @@ const Auth = (props) => {
             setLoading(false);
             setLoginError(true);
         } else {
-            props.history.push('/');
+            if(props.history.length > 0) {
+                props.history.goBack();
+            } else {
+                props.history.push('/');
+            }
         }
     }
 

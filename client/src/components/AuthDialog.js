@@ -13,7 +13,7 @@ const AuthDialog = (props) => {
 
     return (
         <React.Fragment>
-            {redirect ? <Redirect to="/auth" /> : null}
+            {redirect ? <Redirect push to="/auth" /> : null}
             <Dialog onClose={() => props.handleClose(false)} open={true}>
                 <Button variant="outlined" color="primary" size='large' onClick={() => willRedirect(true)}>
                     Iniciar Sesión

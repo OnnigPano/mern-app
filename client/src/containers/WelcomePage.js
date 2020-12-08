@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
         color: 'white',
         [theme.breakpoints.down('sm')]: {
             fontSize: '4rem'
-        }
+        },
+        textShadow:'2px 1px 0 #000',     
     },
     subtitle: {
         fontFamily: 'Shadows Into Light!important',
@@ -20,7 +21,8 @@ const useStyles = makeStyles(theme => ({
             fontSize: '2rem',
             marginBottom: '150px'
         },
-        marginBottom: '300px'
+        marginBottom: '300px',
+        textShadow:'2px 1px 0 #000'
     }
 }));
 
