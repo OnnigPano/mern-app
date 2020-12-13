@@ -5,7 +5,7 @@ import Auth from './containers/Auth';
 import AppBar from './components/AppBar/AppBar';
 import Logout from './components/Logout';
 import ProductsList from './containers/ProductsList';
-import WelcomePage from './containers/WelcomePage';
+import WelcomePage from './containers/WelcomePage/WelcomePage';
 import Cart from './containers/Cart/Cart';
 import  { AuthContext }  from './context/auth-context';
 
