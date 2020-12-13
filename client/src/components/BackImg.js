@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import dogImage from '../imgs/dog5.jpg';
-import dogImage2 from '../imgs/dog2.jpg';
+import dogImage2 from '../imgs/dog-wide.jpg';
 
 
 

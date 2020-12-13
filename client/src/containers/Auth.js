@@ -12,7 +12,7 @@ Faltaría validar cuando se envía el registro de usuario vacío,
 también si el email registrado ya existe
 */
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         width: '94%',
         maxWidth: 400,
@@ -23,7 +23,10 @@ const useStyles = makeStyles({
         flexDirection: "column",
         justifyContent: "space-around",
         height: 340,
-        backgroundColor: 'rgba(255,255,255,0.8)'
+        backgroundColor: 'rgba(255,255,255,0.8)',
+        [theme.breakpoints.up('md')]: {
+            marginRight: '80px',
+        },
     },
     typography: {
         fontWeight: 500,
@@ -34,7 +37,7 @@ const useStyles = makeStyles({
         justifyContent: 'space-around',
         height: 280
     }
-})
+}));
 
 const Auth = (props) => {
     const classes = useStyles();

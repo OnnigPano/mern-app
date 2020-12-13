@@ -1,7 +1,7 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
 import CustomizedPaper from '../../components/CustomizedPaper';
 import BackImg from '../../components/BackImg';
+import Brand from '../../components/Brand/Brand';
 import useStyles from './styles';
 
 const Welcome = () => {
@@ -12,8 +12,7 @@ const Welcome = () => {
         <BackImg>
             <div className={classes.wrapper}>
                 <div>
-                    <Typography className={classes.title} variant="h1" component="h1" align="center">Kimbalache Store</Typography>
-                    <Typography className={classes.subtitle} variant="h3" component="h2" align="center">Todo para tu mascota</Typography>
+                    <Brand />
                 </div>
 
                 <div className={classes.cards}>

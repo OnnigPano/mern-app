@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         position: 'relative',
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
             height: '200px',
             width: '280px',
         }
