@@ -54,11 +54,12 @@ const ProductsList = () => {
         ]);
     }
 
-    function addToCart(id) {
+   async function addToCart(id) {
         if (authContext.isAuth) {
             try {
                 const token = localStorage.getItem('token');
-                axios.post(process.env.REACT_APP_BASE_URL + '/cart', { id: id }, {
+                //Hay que mandar tambien el quantity, por ahora hardcodeado en el controller
+                await axios.post(process.env.REACT_APP_BASE_URL + '/cart', { productId: id }, {
                     headers: {
                         'Authorization': 'Bearer ' + token
                     }

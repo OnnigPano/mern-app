@@ -39,12 +39,26 @@ function Cart() {
                         'Authorization': 'Bearer ' + token
                     }
                 });
-                setProducts(products.data);
+                setProducts(products.data.items);
             } catch (error) {
                 console.log(error);
             }
         }
-
+    }
+    async function deleteProductFromCart(id) {
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                await axios.delete(`${process.env.REACT_APP_BASE_URL}/cart/${id}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                setProducts(products.filter((item) => (item.product._id).toString() !== id));
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 
     let emptyCart = (
@@ -59,18 +73,18 @@ function Cart() {
         <div className={classes.flex}>
             <Container style={{ marginTop: '20px' }}>
                 <List className={classes.root}>
-                    {products ? products.map((p, index) => {
+                    {products ? products.map(({product}, index) => {
                         return (
-                            <React.Fragment key={index}>
+                            <React.Fragment key={product._id}>
                                 <ListItem alignItems="flex-start">
                                     <ListItemAvatar>
                                         <Avatar alt="product image" src="/product1.jpg" />
                                     </ListItemAvatar>
                                     <ListItemText
-                                        primary={p.productName}
-                                        secondary={'$' + p.price}
+                                        primary={product.productName}
+                                        secondary={'$' + product.price}
                                     />
-                                    <IconButton edge="end" aria-label="delete">
+                                    <IconButton edge="end" onClick={() => deleteProductFromCart(product._id)} aria-label="delete">
                                         <DeleteForeverOutlined />
                                     </IconButton>
                                 </ListItem>

@@ -28,7 +28,7 @@ function ProductCard(props) {
     return (
         <Card className={classes.root}>
 
-            <CardMedia className={classes.media}  title={props.title} />
+            <CardMedia className={classes.media} image="/product1.jpg" title={props.title} />
 
             <CardHeader disableTypography className={classes.title} title={props.title} />
 

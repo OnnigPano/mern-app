@@ -11,9 +11,15 @@ const cartController = {
             Si el producto ya existe, solo se debe actualizar la cantidad
             Si el carrito no existe, se crea y se le añade el producto 
         */
-        const { productId, quantity } = req.body;
+        let { productId, quantity } = req.body;
         try {
             let cart = await Cart.findOne({ userId: req.user.id }).exec();
+
+            // Validad que venga el QUANTITY
+            //parche por el momento
+            if(!quantity) {
+                quantity = 1;
+            }
 
             if (cart) {
                 let product = await Product.findById(productId);
@@ -37,7 +43,7 @@ const cartController = {
             }
 
             await cart.save();
-
+            //devolver el cart o el product?
             return res.status(200).json(cart);
         } catch (e) {
             res.status(400).json(e.message);
@@ -52,7 +58,7 @@ const cartController = {
                 return res.status(404).json({});
             }
 
-            let populatedCart = await cart.populate('items.product').execPopulate();
+            let populatedCart = await cart.populate({path: 'items.product', model:'Product'}).execPopulate();
 
             res.status(200).json(populatedCart);
 
