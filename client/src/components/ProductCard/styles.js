@@ -15,11 +15,9 @@ const useStyles = makeStyles((theme) => ({
     },
     fav: {
         position: 'absolute',
-        top: '5px',
-        right: '5px',
-        color: 'yellow',
-        backgroundColor: 'rgba(255,255,255,0.3)',
-        borderRadius: '50%'
+        top: '0px',
+        right: '0px',
+        color: theme.palette.secondary.main
     },
     desc: {
         [theme.breakpoints.down('xs')]: {
@@ -37,9 +35,6 @@ const useStyles = makeStyles((theme) => ({
             [theme.breakpoints.up('sm')]: {
                 fontSize: 'larger',
             }
-        },
-        '& button': {
-            padding: '5px'
         }
     }
 }));

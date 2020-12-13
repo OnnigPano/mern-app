@@ -25,14 +25,14 @@ const cartController = {
                 }
                 let itemFound = cart.items.find((item) => item.product == productId);
                 if (itemFound) {
-                    itemFound.quantity += quantity;
+                    itemFound.quantity = quantity;
                 } else {
-                    cart.items.push({product: productId, quantity});
+                    cart.items.push({ product: productId, quantity });
                 }
             } else {
                 cart = new Cart({
                     userId: req.user.id,
-                    items: [{product: productId, quantity}]
+                    items: [{ product: productId, quantity }]
                 });
             }
 
@@ -62,12 +62,17 @@ const cartController = {
     },
     deleteProductFromCart: async (req, res) => {
         try {
+            let cart = await Cart.findOne({ userId: req.user.id }).exec();
+
+            if (!cart) {
+                return res.status(404).json({ error: 'Cart Not Found' });
+            }
             //removes all de refs with that ID but it should only remove ONE.
-            req.user.cartProducts.pull(req.params.id);
-            await req.user.save()
-            res.json(req.user)
+            cart.items = cart.items.filter((item) => new ObjectId(item.product).toString() !== req.params.id);
+            await cart.save();
+            res.status(200).json();
         } catch (e) {
-            res.status(404).json(e)
+            res.status(404).json(e.message)
         }
     }
 }

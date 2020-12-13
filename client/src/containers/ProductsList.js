@@ -115,7 +115,7 @@ const ProductsList = () => {
                                         <CircularProgress color="primary" />
                                     </Backdrop>
                                     :
-                                    <ProductCard addToFavs={addToFavs} addProductToCart={addToCart} id={product._id} title={product.productName} description={product.description} price={product.price} />
+                                    <ProductCard  addToFavs={addToFavs} addProductToCart={addToCart} id={product._id} title={product.productName} description={product.description} price={product.price} />
                                 }
                             </Grid>
                         );
