@@ -10,14 +10,16 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import {
-    Store,
-    Favorite,
-    ShoppingCart,
-    Info,
-    /* PersonAdd,
-    VpnKey */
-    PowerSettingsNew,
-    MeetingRoom
+  StoreOutlined,
+  FavoriteBorderOutlined,
+  ShoppingCartOutlined,
+  InfoOutlined,
+  /* PersonAdd,
+  VpnKey */
+  DnsOutlined,
+  PowerSettingsNew,
+  MeetingRoomOutlined,
+  AccountBoxOutlined
 } from '@material-ui/icons';
 import ListItemLink from './ListItemLink';
 
@@ -41,7 +43,7 @@ export default function TemporaryDrawer(props) {
   const authButtons = (
     <div>
       {/* <ListItemLink to={{pathname: "/auth", state: {isLogin: true}}} primary="Iniciar Sesión" icon={<VpnKey/>} /> */}
-      <ListItemLink to="/auth" primary="Ingresar" icon={<MeetingRoom />} />
+      <ListItemLink to="/auth" primary="Ingresar" icon={<MeetingRoomOutlined />} />
     </div>
   );
 
@@ -69,18 +71,20 @@ export default function TemporaryDrawer(props) {
       </List>
       <Divider />
       <List>
-        <ListItemLink to="/products" primary="Productos" icon={<Store />} />
+        {authContext.isAuth ? <ListItemLink to="/profile" primary="Mi Cuenta" icon={<AccountBoxOutlined />} /> : null}
+        <ListItemLink to="/products" primary="Productos" icon={<StoreOutlined />} />
+        <ListItemLink to="/categories" primary="Categorias" icon={<DnsOutlined />} />
         <ListItem button component={Link} to="/favs">
-          <ListItemIcon> <Favorite /> </ListItemIcon>
+          <ListItemIcon> <FavoriteBorderOutlined /> </ListItemIcon>
           <ListItemText primary="Favoritos" />
         </ListItem>
         <ListItem button component={Link} to="/cart">
-          <ListItemIcon> <ShoppingCart /> </ListItemIcon>
+          <ListItemIcon> <ShoppingCartOutlined /> </ListItemIcon>
           <ListItemText primary="Mi Carrito" />
         </ListItem>
         <Divider />
         <ListItem button component={Link} to="/about">
-          <ListItemIcon> <Info /> </ListItemIcon>
+          <ListItemIcon> <InfoOutlined /> </ListItemIcon>
           <ListItemText primary="Nosotros" />
         </ListItem>
       </List>
