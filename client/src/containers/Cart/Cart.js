@@ -9,7 +9,7 @@ import {
     ListItemText,
     Divider,
     IconButton,
-    Button
+    // Button
 } from '@material-ui/core';
 import { DeleteForeverOutlined } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
