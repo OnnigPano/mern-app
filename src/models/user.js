@@ -38,10 +38,6 @@ const userSchema = new Schema({
     profileImage: {
         type: String
     },
-    cartProducts: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
-    }],
     favs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product'
