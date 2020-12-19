@@ -21,12 +21,19 @@ import useStyles from './styles';
 function Cart() {
 
     const [products, setProducts] = useState([]);
+    const [total, setTotal] = useState(0);
 
     const authContext = useContext(AuthContext);
 
     useEffect(() => {
         getCartProducts();
     }, []);
+
+    useEffect(() => {
+        //cada vez q se actualizan los productos en el carrito
+        //se calcula el total en el cliente
+        calcTotalAmount(products);
+    }, [products])
 
     const classes = useStyles();
 
@@ -61,6 +68,17 @@ function Cart() {
         }
     }
 
+    function calcTotalAmount (products) {
+        let total = 0;
+        if(products) {
+            total = products.reduce((acum, product) => {
+                return acum + (product.quantity * product.product.price);
+            }, 0);
+        }
+
+        setTotal(total);
+    }
+
     let emptyCart = (
         <div className={classes.emptyCart}>
             {/* <Button color="secondary" variant="contained" component={RouterLink} to="/products">
@@ -71,9 +89,9 @@ function Cart() {
 
     let cart = (
         <div className={classes.flex}>
-            <Container style={{ marginTop: '20px' }}>
+            <Container  maxWidth="md" disableGutters>
                 <List className={classes.root}>
-                    {products ? products.map(({product}, index) => {
+                    {products ? products.map(({product}) => {
                         return (
                             <React.Fragment key={product._id}>
                                 <ListItem alignItems="flex-start">
@@ -94,7 +112,7 @@ function Cart() {
                     }) : null}
                 </List>
             </Container>
-            <BottomCartNav />
+            <BottomCartNav total={total} />
         </div>
     );
 

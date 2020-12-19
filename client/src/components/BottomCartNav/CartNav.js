@@ -9,17 +9,17 @@ import {
 } from '@material-ui/icons';
 import useStyles from './styles';
 
-function BottomNavCart() {
+function BottomNavCart(props) {
 
     const classes = useStyles();
 
     return (
         <BottomNavigation className={classes.root} showLabels>
             <BottomNavigationAction label="Ir de compras" icon={<AddBoxOutlined />} />
-            <h3>$156.00</h3>
+            <h3>${props.total}</h3>
             <BottomNavigationAction label="Pagar" icon={<CreditCardOutlined />} />
         </BottomNavigation>
     );
 }
 
-export default BottomNavCart;
+export default React.memo(BottomNavCart);
