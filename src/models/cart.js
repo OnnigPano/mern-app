@@ -7,7 +7,12 @@ const cartSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    items: [ItemOrder.schema]
+    items: [ItemOrder.schema],
+    total: {
+        type: Number,
+        default: 0,
+        min: 0
+    }
 }, {
     timestamps: true
 });

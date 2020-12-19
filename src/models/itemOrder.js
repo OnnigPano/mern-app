@@ -9,7 +9,7 @@ const itemOrderSchema = new Schema({
     quantity: {
         type: Number,
         default: 1,
-        min: [1, 'Quantity can not be less then 1.']
+        min: [1, 'Quantity can not be less than 1.']
     }
 }, {
     timestamps: true
