@@ -6,6 +6,7 @@ import AppBar from './components/AppBar/AppBar';
 import Logout from './components/Logout';
 import ProductsList from './containers/ProductsList';
 import WelcomePage from './containers/WelcomePage/WelcomePage';
+import Favorites from './containers/Favs/Favs';
 import Cart from './containers/Cart/Cart';
 import  { AuthContext }  from './context/auth-context';
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/products" component={ProductsList} />
             {!isAuth ? <Route path="/auth" component={Auth} /> : <Route path="/logout" component={Logout} />}
             <Route path="/cart" component={Cart}/>          
+            <Route path="/favs" component={Favorites} />
             <Redirect path='*' to='/' />
           </Switch>
       </div>

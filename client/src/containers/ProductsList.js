@@ -56,26 +56,42 @@ const ProductsList = () => {
 
     async function addToCart(id) {
         if (authContext.isAuth) {
-            try {
-                const token = localStorage.getItem('token');
-                //Hay que mandar tambien el quantity, por ahora hardcodeado en el controller
-                await axios.post(process.env.REACT_APP_BASE_URL + '/cart', { productId: id }, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    }
-                });
-                handleSnackBar({ ...snackBar, open: true, severity: "success", message: "Añadido al carrito!" });
-            } catch (e) {
-                console.log(e);
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    //Hay que mandar tambien el quantity, por ahora hardcodeado
+                    await axios.post(process.env.REACT_APP_BASE_URL + '/cart', { productId: id, quantity: 1 }, {
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        }
+                    });
+                    handleSnackBar({ ...snackBar, open: true, severity: "success", message: "Añadido al carrito!" });
+                } catch (e) {
+                    console.log(e);
+                }
             }
         } else {
             setAuthMessage(true);
         }
     }
 
-    function addToFavs() {
+    async function addToFavs(id) {
         if (authContext.isAuth) {
-            handleSnackBar({ ...snackBar, open: true, severity: "warning", message: "Funcionalidad en desarrollo :)" })
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    await axios.post(process.env.REACT_APP_BASE_URL + '/favs/' + id, {}, {
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        }
+                    });
+                    handleSnackBar({ ...snackBar, open: true, severity: "info", message: "Añadido a favoritos!" });
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        } else {
+            setAuthMessage(true);
         }
     }
 

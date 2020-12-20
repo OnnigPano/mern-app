@@ -42,7 +42,7 @@ function ProductCard(props) {
 
             <CardActions className={classes.actions} disableSpacing>
 
-                <IconButton className={classes.fav} onClick={() => addToFavs()}>
+                <IconButton className={classes.fav} onClick={() => addToFavs(product._id)}>
                     <FavoriteBorder />
                 </IconButton>
 

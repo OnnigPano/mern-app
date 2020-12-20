@@ -74,10 +74,12 @@ export default function TemporaryDrawer(props) {
         {authContext.isAuth ? <ListItemLink to="/profile" primary="Mi Cuenta" icon={<AccountBoxOutlined />} /> : null}
         <ListItemLink to="/products" primary="Productos" icon={<StoreOutlined />} />
         <ListItemLink to="/categories" primary="Categorias" icon={<DnsOutlined />} />
-        <ListItem button component={Link} to="/favs">
+        <ListItemLink to="/favs" primary="Favoritos" icon={<FavoriteBorderOutlined />} />
+
+        {/* <ListItem button component={Link} to="/favs">
           <ListItemIcon> <FavoriteBorderOutlined /> </ListItemIcon>
           <ListItemText primary="Favoritos" />
-        </ListItem>
+        </ListItem> */}
         <ListItem button component={Link} to="/cart">
           <ListItemIcon> <ShoppingCartOutlined /> </ListItemIcon>
           <ListItemText primary="Mi Carrito" />

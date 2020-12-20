@@ -14,6 +14,7 @@ const AuthContextProvider = (props) => {
         name: '',
         img: ''
     });
+    const [favs, setFavs] = useState([]);
 
     const loginHandler = async (credentials) => {
         try {
@@ -25,7 +26,8 @@ const AuthContextProvider = (props) => {
                 email: data.user.email,
                 name: data.user.name,
                 img: data.user.profileImage
-            })
+            });
+            setFavs(data.user.favs);
 
             return true;
         } catch (error) {
@@ -44,6 +46,7 @@ const AuthContextProvider = (props) => {
             localStorage.removeItem('token');
             setIsAuthenticated(false);
             setUserData({});
+            setFavs([]);
         } catch (error) {
             console.log(error);
         }
@@ -67,6 +70,7 @@ const AuthContextProvider = (props) => {
                         name: user.data.name,
                         img: user.data.profileImage
                     });
+                    setFavs(user.data.favs);
                 }
             
             } catch (error) {
@@ -101,6 +105,7 @@ const AuthContextProvider = (props) => {
         value={{
             isAuth: isAuthenticated,
             user: userData,
+            favs: favs,
             login: loginHandler,
             checkToken: checkTokenExists,
             register: registerHandler,
