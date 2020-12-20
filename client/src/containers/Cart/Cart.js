@@ -7,11 +7,13 @@ import {
     ListItemAvatar,
     Avatar,
     ListItemText,
-    Divider,
     IconButton,
-    // Button
 } from '@material-ui/core';
-import { DeleteForeverOutlined } from '@material-ui/icons';
+import {
+    DeleteForeverOutlined,
+    AddOutlined,
+    RemoveOutlined
+} from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
 import BottomCartNav from '../../components/BottomCartNav/CartNav';
 import { AuthContext } from '../../context/auth-context';
@@ -68,9 +70,9 @@ function Cart() {
         }
     }
 
-    function calcTotalAmount (products) {
+    function calcTotalAmount(products) {
         let total = 0;
-        if(products) {
+        if (products) {
             total = products.reduce((acum, product) => {
                 return acum + (product.quantity * product.product.price);
             }, 0);
@@ -89,24 +91,30 @@ function Cart() {
 
     let cart = (
         <div className={classes.flex}>
-            <Container  maxWidth="md" disableGutters>
+            <Container maxWidth="md" disableGutters>
                 <List className={classes.root}>
-                    {products ? products.map(({product}) => {
+                    {products ? products.map(({ product, quantity }) => {
                         return (
                             <React.Fragment key={product._id}>
-                                <ListItem alignItems="flex-start">
+                                <ListItem divider alignItems="flex-start">
                                     <ListItemAvatar>
                                         <Avatar alt="product image" src="/product1.jpg" />
                                     </ListItemAvatar>
                                     <ListItemText
                                         primary={product.productName}
-                                        secondary={'$' + product.price}
+                                        secondary={'$' + product.price + ' x ' + quantity + 'u.'}
                                     />
+                                    {/* <IconButton >
+                                        <RemoveOutlined />
+                                    </IconButton>
+                                        <p className={classes.price}>{quantity}</p>
+                                    <IconButton >
+                                        <AddOutlined />
+                                    </IconButton> */}
                                     <IconButton edge="end" onClick={() => deleteProductFromCart(product._id)} aria-label="delete">
                                         <DeleteForeverOutlined />
                                     </IconButton>
                                 </ListItem>
-                                <Divider variant="inset" component="li" />
                             </React.Fragment>
                         )
                     }) : null}

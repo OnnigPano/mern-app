@@ -54,7 +54,7 @@ const ProductsList = () => {
         ]);
     }
 
-   async function addToCart(id) {
+    async function addToCart(id) {
         if (authContext.isAuth) {
             try {
                 const token = localStorage.getItem('token');
@@ -116,7 +116,11 @@ const ProductsList = () => {
                                         <CircularProgress color="primary" />
                                     </Backdrop>
                                     :
-                                    <ProductCard  addToFavs={addToFavs} addProductToCart={addToCart} id={product._id} title={product.productName} description={product.description} price={product.price} />
+                                    <ProductCard
+                                        addToFavs={addToFavs}
+                                        addProductToCart={addToCart}
+                                        product={product}
+                                    />
                                 }
                             </Grid>
                         );

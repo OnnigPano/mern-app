@@ -22,40 +22,40 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 });
 
 function ProductCard(props) {
-
+    let { product, addToFavs, addProductToCart } = props;
 
     const classes = useStyles();
     return (
         <Card className={classes.root}>
 
-            <CardMedia className={classes.media} image="/product1.jpg" title={props.title} />
+            <CardMedia className={classes.media} image="/product1.jpg" />
 
-            <CardHeader disableTypography className={classes.title} title={props.title} />
+            <CardHeader disableTypography className={classes.title} title={product.productName} />
 
             <CardContent className={classes.desc} >
 
                 <Typography variant="body2" color="textSecondary" component="p">
-                    {props.description}
+                    {product.description}
                 </Typography>
 
             </CardContent>
 
             <CardActions className={classes.actions} disableSpacing>
 
-                <IconButton className={classes.fav} onClick={() => props.addToFavs()}>
+                <IconButton className={classes.fav} onClick={() => addToFavs()}>
                     <FavoriteBorder />
                 </IconButton>
-    
-                    <IconButton onClick={() => props.addProductToCart(props.id)}>
-                        <AddShoppingCart />
-                    </IconButton>
+
+                <IconButton onClick={() => addProductToCart(product._id)}>
+                    <AddShoppingCart />
+                </IconButton>
 
                 <IconButton aria-label="share">
                     <ShareOutlined />
                 </IconButton>
 
                 <span>
-                    {currencyFormatter.format(Number(props.price))}
+                    {currencyFormatter.format(Number(product.price))}
                 </span>
             </CardActions>
 

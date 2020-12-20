@@ -7,6 +7,7 @@ import {
     CreditCardOutlined,
     AddBoxOutlined
 } from '@material-ui/icons';
+import { Link as RouterLink } from 'react-router-dom';
 import useStyles from './styles';
 
 function BottomNavCart(props) {
@@ -15,7 +16,7 @@ function BottomNavCart(props) {
 
     return (
         <BottomNavigation className={classes.root} showLabels>
-            <BottomNavigationAction label="Ir de compras" icon={<AddBoxOutlined />} />
+            <BottomNavigationAction to="/products" component={RouterLink} label="Ir de compras" icon={<AddBoxOutlined />} />
             <h3>${props.total}</h3>
             <BottomNavigationAction label="Pagar" icon={<CreditCardOutlined />} />
         </BottomNavigation>

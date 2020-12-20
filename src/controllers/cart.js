@@ -11,6 +11,7 @@ const cartController = {
             Si el producto ya existe, solo se debe actualizar la cantidad
             Si el carrito no existe, se crea y se le añade el producto 
         */
+        //Tengoo q actualizar el total del cart al agregar al carrito?
         let { productId, quantity } = req.body;
         if (Number.parseInt(quantity) < 1) {
             return res.status(400).json({ error: 'Quantity can not be less than 1' });
