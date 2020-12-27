@@ -15,12 +15,9 @@ function App() {
   const { isAuth, checkToken } = useContext(AuthContext);
 
   useEffect(() => {
-    /* Genera un wanrning de dependencies, pero
-    checkToken() lo ejecuto solamente en éste componente */
     checkToken();
-    console.log('desde App useEffect');
   }, []);
-  
+
   return (
       <div className="App">
         <AppBar />

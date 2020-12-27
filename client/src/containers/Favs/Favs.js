@@ -1,7 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../../context/auth-context';
 import { Redirect } from 'react-router-dom';
-import { DeleteForeverOutlined } from '@material-ui/icons';
+import {
+    DeleteForeverOutlined,
+    AddShoppingCart
+} from '@material-ui/icons';
 import {
     ListItem,
     ListItemAvatar,
@@ -9,7 +12,7 @@ import {
     ListItemText,
     IconButton
 } from '@material-ui/core';
-import axios from 'axios';
+import { getFavs, deleteFav } from '../../utils/favsFunctions';
 
 
 function Favorites() {
@@ -18,25 +21,21 @@ function Favorites() {
     const [favs, setFavs] = useState([]);
 
     useEffect(() => {
-        getFavs();
-    }, []);
-
-    async function getFavs() {
         if (authContext.isAuth) {
-            const token = localStorage.getItem('token');
-            if (token) {
-                try {
-                    let { data } = await axios.get(process.env.REACT_APP_BASE_URL + '/favs', {
-                        headers: {
-                            'Authorization': 'Bearer ' + token
-                        }
-                    });
-                    console.log(data.favs);
-                    setFavs(data.favs);
-                } catch (e) {
-                    console.log(e);
-                }
-            }
+            (async () => {
+                const result = await getFavs();
+                setFavs(result);
+            })();
+        }
+    }, [authContext.isAuth]);
+
+    function deleteFromFavs(id) {
+        if (authContext.isAuth) {
+                (async () => {
+                    await deleteFav(id);
+                    setFavs(favs.filter((item) => (item._id).toString() !== id));
+                    authContext.favs = authContext.favs.filter((favId) => favId.toString() !== id);
+                })();
         }
     }
 
@@ -44,7 +43,7 @@ function Favorites() {
         <React.Fragment>
             {!authContext.isAuth ? <Redirect to="/" /> : null}
             {
-                favs ? favs.map((favItem) => {
+                favs.length > 0 ? favs.map((favItem) => {
                     return (
                         <ListItem key={favItem._id} divider alignItems="flex-start">
                             <ListItemAvatar>
@@ -54,6 +53,9 @@ function Favorites() {
                                 primary={favItem.productName}
                             />
                             <IconButton edge="end">
+                                <AddShoppingCart />
+                            </IconButton>
+                            <IconButton edge="end" onClick={() => deleteFromFavs(favItem._id)}>
                                 <DeleteForeverOutlined />
                             </IconButton>
                         </ListItem>

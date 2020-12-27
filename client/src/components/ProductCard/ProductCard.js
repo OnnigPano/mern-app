@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Card,
     CardHeader,
@@ -11,7 +11,8 @@ import {
 import {
     FavoriteBorder,
     AddShoppingCart,
-    ShareOutlined
+    ShareOutlined,
+    FavoriteOutlined
 } from '@material-ui/icons';
 import useStyles from './styles';
 
@@ -22,9 +23,11 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 });
 
 function ProductCard(props) {
-    let { product, addToFavs, addProductToCart } = props;
-
+    const { product, addToFavs, addProductToCart, alreadyInFavs, deleteFromFavs } = props;
     const classes = useStyles();
+
+    const [favIcon, changeFaveIcon] = useState(alreadyInFavs ? true : false);
+
     return (
         <Card className={classes.root}>
 
@@ -41,10 +44,25 @@ function ProductCard(props) {
             </CardContent>
 
             <CardActions className={classes.actions} disableSpacing>
-
-                <IconButton className={classes.fav} onClick={() => addToFavs(product._id)}>
-                    <FavoriteBorder />
-                </IconButton>
+                {favIcon ?
+                    <IconButton
+                        className={classes.fav}
+                        onClick={() => {
+                            deleteFromFavs(product._id);
+                            changeFaveIcon(false);
+                        }}>
+                        <FavoriteOutlined />
+                    </IconButton>
+                    :
+                    <IconButton
+                        className={classes.fav}
+                        onClick={() => {
+                            addToFavs(product._id);
+                            changeFaveIcon(true);
+                        }}>
+                        <FavoriteBorder />
+                    </IconButton>
+                }
 
                 <IconButton onClick={() => addProductToCart(product._id)}>
                     <AddShoppingCart />

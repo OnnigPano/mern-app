@@ -14,6 +14,7 @@ import ProductForm from '../containers/ProductForm';
 import AuthDialog from '../components/AuthDialog';
 import CustomizedSnackbars from '../components/SnackBar/SnackBar';
 import { AuthContext } from '../context/auth-context';
+import { addFav, deleteFav } from '../utils/favsFunctions';
 
 const styles = {
     fab: {
@@ -77,21 +78,21 @@ const ProductsList = () => {
 
     async function addToFavs(id) {
         if (authContext.isAuth) {
-            const token = localStorage.getItem('token');
-            if (token) {
-                try {
-                    await axios.post(process.env.REACT_APP_BASE_URL + '/favs/' + id, {}, {
-                        headers: {
-                            'Authorization': 'Bearer ' + token
-                        }
-                    });
-                    handleSnackBar({ ...snackBar, open: true, severity: "info", message: "Añadido a favoritos!" });
-                } catch (e) {
-                    console.log(e);
-                }
-            }
+            //Manejar el catch acá o en la declaracion del metodo?
+            await addFav(id);
+            handleSnackBar({ ...snackBar, open: true, severity: "info", message: "Añadido a favoritos!" });
+            authContext.favs.push(id);
         } else {
             setAuthMessage(true);
+        }
+    }
+
+    function deleteFromFavs(id) {
+        if (authContext.isAuth) {
+            (async () => {
+                await deleteFav(id);
+                authContext.favs = authContext.favs.filter((favId) => favId.toString() !== id);
+            })();
         }
     }
 
@@ -134,8 +135,10 @@ const ProductsList = () => {
                                     :
                                     <ProductCard
                                         addToFavs={addToFavs}
+                                        deleteFromFavs={deleteFromFavs}
                                         addProductToCart={addToCart}
                                         product={product}
+                                        alreadyInFavs={authContext.favs.includes(product._id)}
                                     />
                                 }
                             </Grid>

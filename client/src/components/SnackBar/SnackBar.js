@@ -38,7 +38,7 @@ export default function CustomizedSnackbars(props) {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={props.snackBarState.open}
         autoHideDuration={3000}
-        onClose={(handleClose)}
+        onClose={handleClose}
       >
         <Alert onClose={handleClose} severity={props.snackBarState.severity}>
           {props.snackBarState.message}

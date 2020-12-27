@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         top: '0px',
         right: '0px',
-        color: theme.palette.secondary.main
+        color: 'yellow'
     },
     desc: {
         [theme.breakpoints.down('xs')]: {

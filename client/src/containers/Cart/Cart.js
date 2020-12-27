@@ -10,9 +10,7 @@ import {
     IconButton,
 } from '@material-ui/core';
 import {
-    DeleteForeverOutlined,
-    AddOutlined,
-    RemoveOutlined
+    DeleteForeverOutlined
 } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
 import BottomCartNav from '../../components/BottomCartNav/CartNav';
