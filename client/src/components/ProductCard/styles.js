@@ -11,12 +11,13 @@ const useStyles = makeStyles((theme) => ({
     },
     media: {
         height: 0,
-        paddingTop: '56.25%'
+        paddingTop: '56.25%',
+        backgroundSize: 'contain'
     },
     fav: {
         position: 'absolute',
-        top: '0px',
-        right: '0px',
+        top: '5px',
+        right: '5px',
         color: 'yellow'
     },
     desc: {
@@ -35,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
             [theme.breakpoints.up('sm')]: {
                 fontSize: 'larger',
             }
+        },
+        '& button' : {
+            padding: '0px'
         }
     }
 }));

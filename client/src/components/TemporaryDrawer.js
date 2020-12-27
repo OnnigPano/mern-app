@@ -59,7 +59,7 @@ export default function TemporaryDrawer(props) {
     >
       <List>
         <ListItem>
-          <Avatar src={authContext.user.profileImage} className={classes.avatar} />
+          <Avatar src={authContext.user.profileImage} className={classes.avatar} variant="rounded"/>
           <Typography variant="subtitle1" component="h4">
             {authContext.isAuth ? authContext.user.name : 'Bienvenido'}
           </Typography>

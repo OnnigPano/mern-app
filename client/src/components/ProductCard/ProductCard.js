@@ -31,7 +31,7 @@ function ProductCard(props) {
     return (
         <Card className={classes.root}>
 
-            <CardMedia className={classes.media} image="/product1.jpg" />
+            <CardMedia className={classes.media} image="/product1.png" />
 
             <CardHeader disableTypography className={classes.title} title={product.productName} />
 
@@ -44,6 +44,7 @@ function ProductCard(props) {
             </CardContent>
 
             <CardActions className={classes.actions} disableSpacing>
+                
                 {favIcon ?
                     <IconButton
                         className={classes.fav}

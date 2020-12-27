@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../../context/auth-context';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link as RouterLink } from 'react-router-dom';
 import {
     DeleteForeverOutlined,
     AddShoppingCart
@@ -10,7 +10,9 @@ import {
     ListItemAvatar,
     Avatar,
     ListItemText,
-    IconButton
+    IconButton,
+    Typography,
+    Button
 } from '@material-ui/core';
 import { getFavs, deleteFav } from '../../utils/favsFunctions';
 
@@ -31,11 +33,11 @@ function Favorites() {
 
     function deleteFromFavs(id) {
         if (authContext.isAuth) {
-                (async () => {
-                    await deleteFav(id);
-                    setFavs(favs.filter((item) => (item._id).toString() !== id));
-                    authContext.favs = authContext.favs.filter((favId) => favId.toString() !== id);
-                })();
+            (async () => {
+                await deleteFav(id);
+                setFavs(favs.filter((item) => (item._id).toString() !== id));
+                authContext.favs = authContext.favs.filter((favId) => favId.toString() !== id);
+            })();
         }
     }
 
@@ -47,7 +49,7 @@ function Favorites() {
                     return (
                         <ListItem key={favItem._id} divider alignItems="flex-start">
                             <ListItemAvatar>
-                                <Avatar alt="product image" src="/product1.jpg" />
+                                <Avatar alt="product image" src="/product1.png" variant="rounded"/>
                             </ListItemAvatar>
                             <ListItemText
                                 primary={favItem.productName}
@@ -60,7 +62,20 @@ function Favorites() {
                             </IconButton>
                         </ListItem>
                     );
-                }) : "Sin favoritos...."
+                }) : <div>
+                        <Typography variant="h5" component="h2" align="center">
+                            No tienes Favoritos
+                        </Typography>
+                        <Button
+                            size="large"
+                            variant="contained"
+                            color="secondary"
+                            disableElevation
+                            to="/products"
+                            component={RouterLink}>
+                            Ver Productos
+                        </Button>
+                    </div>
             }
         </React.Fragment>
     );

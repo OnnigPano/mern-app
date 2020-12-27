@@ -96,19 +96,12 @@ function Cart() {
                             <React.Fragment key={product._id}>
                                 <ListItem divider alignItems="flex-start">
                                     <ListItemAvatar>
-                                        <Avatar alt="product image" src="/product1.jpg" />
+                                        <Avatar alt="product image" src="/product1.png" variant="rounded" />
                                     </ListItemAvatar>
                                     <ListItemText
                                         primary={product.productName}
                                         secondary={'$' + product.price + ' x ' + quantity + 'u.'}
                                     />
-                                    {/* <IconButton >
-                                        <RemoveOutlined />
-                                    </IconButton>
-                                        <p className={classes.price}>{quantity}</p>
-                                    <IconButton >
-                                        <AddOutlined />
-                                    </IconButton> */}
                                     <IconButton edge="end" onClick={() => deleteProductFromCart(product._id)} aria-label="delete">
                                         <DeleteForeverOutlined />
                                     </IconButton>

@@ -19,7 +19,7 @@ const Welcome = () => {
                     <CustomizedPaper image="/puppy.jpg" category="Perros" target="/products" />
                     <CustomizedPaper image="/kitten.jpg" category="Gatos" target="/products" />
                     <CustomizedPaper image="/iguana.jpg" category="Reptiles" target="/products" />
-                    <CustomizedPaper image="/product1.jpg" category="Accesorios" target="/products" />
+                    <CustomizedPaper image="/accesorios.jpg" category="Accesorios" target="/products" />
                 </div>
             </div>
         </BackImg>

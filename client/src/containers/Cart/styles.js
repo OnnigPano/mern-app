@@ -31,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             width: '50%'
         }
-    },
-    price: {
-        fontSize: '1rem'
     }
 }));
 
