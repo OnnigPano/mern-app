@@ -30,7 +30,7 @@
   "devDependencies": {
     "concurrently": "^5.2.0",
     "dotenv": "^8.2.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.20"
   },
   "nodemonConfig": {
     "ignore": [
